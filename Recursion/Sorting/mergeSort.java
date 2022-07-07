@@ -1,7 +1,15 @@
 package Recursion.Sorting;
 
 import java.util.Arrays;
-
+/**
+ * Total levels = log N
+ * at each level N no. of comparison are made.  hence
+ * Time complexity  = O(N log N)
+ * Space complexity = Auxiliary space = maximum elements resides in stack = maximum height of level i.e N
+ *
+ *
+ *
+ * **/
 public class mergeSort {
     public static void main(String[] args) {
         int[] arr = {8, 3, 4, 12, 5, 6};
