@@ -1,2 +1,19 @@
 # Data-Structure-and-Algorithm-in-JAVA
-This is playlist of DSA questions using java.
+* A complete question Bank of DSA in Java.
+
+## Topics includes :
+
+* Array
+* Sorting
+* Searching
+* Bit manipulation
+* Math
+* Fuction
+* Pattern
+* Strings
+* LinkedList
+* Stack
+* Queue
+* and so on......
+
+
