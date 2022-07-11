@@ -8,8 +8,14 @@ public class NoOfBits {
         int n = 200;
         System.out.println(Integer.toBinaryString(n));
         System.out.println(setbits(n));
+        System.out.println(hammingWeight(n));
+    }
+    /*************** METHOD 2 EASIEST METHOD *************/
+    public static int hammingWeight(int n) {
+        return Integer.bitCount(n);
     }
 
+    /*************** METHOD 1 loop METHOD *************/
     private static int setbits(int n) {
         int count = 0;
 //        while (n>0){
@@ -23,4 +29,5 @@ public class NoOfBits {
         }
         return count;
     }
+
 }
