@@ -16,10 +16,10 @@ public class NoOfBits {
 //            count++;
 //            n -= n& (-n);
 //        }
-
         while (n>0){
-            count++;
+//            count++;
             n = n&(n-1);
+            count++;
         }
         return count;
     }
