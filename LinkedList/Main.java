@@ -24,6 +24,7 @@ public class Main {
         ll.insertFirst(8);
         ll.insertFirst(2);
         ll.insertFirst(28);
+        ll.insertLast(99);
         ll.displayRev();
     }
 }
