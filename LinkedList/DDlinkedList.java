@@ -14,6 +14,21 @@ public class DDlinkedList {
         head = node;
     }
 
+    //INSERT AT SPECIFIC POSITION
+    public void insertPos(int after,int value){
+        Node p = find(after);
+        if(p == null){
+            System.out.println("Node does not exsists");
+            return;
+        }
+        Node node = new Node(value);
+        node.next = p.next;
+        p.next = node;
+        node.prev = p;
+        if (node.next != null)
+            node.next.prev = node;
+    }
+
     //INSERT LAST
     public void insertLast(int value){
         Node node = new Node(value);
@@ -56,6 +71,18 @@ public class DDlinkedList {
             last =  last.prev;
         }
         System.out.println("START");
+    }
+
+    // SEARCH FOR THE VALUE IN LIST
+    public Node find(int val) {
+        Node node = head;
+        while(node != null){
+            if(node.value == val){
+                return node;
+            }
+            node = node.next;
+        }
+        return null;
     }
 
 

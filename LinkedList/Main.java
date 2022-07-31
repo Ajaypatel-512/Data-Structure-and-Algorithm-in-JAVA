@@ -19,12 +19,22 @@ public class Main {
 //        System.out.println(ll.find(8));
 
 
-        DDlinkedList ll = new DDlinkedList();
+//        DDlinkedList ll = new DDlinkedList();
+//        ll.insertFirst(3);
+//        ll.insertFirst(8);
+//        ll.insertFirst(2);
+//        ll.insertFirst(28);
+//        ll.insertPos(28,65);
+////        ll.insertLast(99);
+//        ll.displayRev();
+
+
+        ClList ll = new ClList();
         ll.insertFirst(3);
         ll.insertFirst(8);
         ll.insertFirst(2);
         ll.insertFirst(28);
-        ll.insertLast(99);
-        ll.displayRev();
+        ll.delete(3);
+        ll.display();
     }
 }
