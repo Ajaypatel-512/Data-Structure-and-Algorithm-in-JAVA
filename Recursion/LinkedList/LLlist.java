@@ -22,6 +22,21 @@ public class LLlist {
         size +=1;
     }
 
+    // INSERT VALUE AT FIRST POSITION
+    public void insertRec(int val, int index){
+        head = insertRec(val,index,head);
+    }
+    private Node insertRec(int val,int index, Node node){
+        if(index == 0){
+            Node temp = new Node(val, node);
+            size++;
+            return temp;
+        }
+        node.next = insertRec(val,index-1,node.next);
+        return node;
+    }
+
+
     // INSERT VALUE AT SPECIFIC POSITION
     public void insertPos(int val,int index){
         if(index == 0){
@@ -143,5 +158,22 @@ public class LLlist {
             node = node.next;
         }
         return node;
+    }
+
+
+
+    //DUPLICATES REMOVED
+    public void duplicates(){
+        Node temp = head;
+        while (temp != null){
+            if (temp.data == temp.next.data){
+                temp.next = temp.next.next;
+                size--;
+            }else{
+                temp = temp.next;
+            }
+        }
+        tail = temp;
+        tail.next = null;
     }
 }
