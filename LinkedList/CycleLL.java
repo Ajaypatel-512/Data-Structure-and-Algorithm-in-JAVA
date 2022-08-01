@@ -24,7 +24,7 @@ public class CycleLL {
         while(f != null && f.next != null){
             f = f.next.next;
             s = s.next;
-            if(f == s)
+            if(f ==  s)
                 return true;
         }
         return false;
