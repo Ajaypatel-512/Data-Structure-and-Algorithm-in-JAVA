@@ -15,8 +15,8 @@ public class Anagram {
     }
 
     public static void main(String[] args) {
-        String s = "apple";
-        String t = "pplea";
+        String s = "listen";
+        String t = "silent";
         System.out.println(isAnagram(s,t));
     }
 }
