@@ -1,0 +1,42 @@
+package Extra.TCS_NQT;
+
+import java.util.Scanner;
+
+//We want to estimate the cost of painting a property. Interior wall painting cost is Rs.18 per sq.ft. and exterior wall painting cost is Rs.12 per sq.ft.
+//
+//        Take input as
+//        1. Number of Interior walls
+//        2. Number of Exterior walls
+//        3. Surface Area of each Interior 4. Wall in units of square feet
+//        Surface Area of each Exterior Wall in units of square feet
+//
+//        If a user enters zero  as the number of walls then skip Surface area values as User may don’t  want to paint that wall.
+//
+//        Calculate and display the total cost of painting the property
+
+public class wallPainting {
+    public static void main(String[] args) {
+        int ni, ne, i = 0;
+        float intP = 18, extP = 12, cost = 0, temp;
+
+        Scanner sc = new Scanner(System.in);
+        ni = sc.nextInt();
+        ne = sc.nextInt();
+
+        if(ni < 0 || ne < 0) {
+            System.out.print("INVALID INPUT");
+        } else if(ni == 0 && ne == 0) {
+            System.out.print("Total estimated Cost : 0.0");
+        } else {
+            for(i = 0; i < ni; i++) {
+                temp = sc.nextFloat();
+                cost += intP * temp;
+            }
+            for(i = 0; i < ne; i++) {
+                temp = sc.nextFloat();
+                cost += extP * temp;
+            }
+            System.out.printf("Total estimated Cost : %.1f", cost);
+        }
+    }
+}
