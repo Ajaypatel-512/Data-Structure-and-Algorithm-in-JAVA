@@ -21,16 +21,17 @@ public class hashMap {
         map.put(4,"satyam");
         map.put(5,"ajay");
         map.put(5,"null");
+        map.putIfAbsent(3,"akshay");
 
         System.out.println(map);
 
-//        for (Map.Entry m:map.entrySet()) {
-//            System.out.println(m.getKey()+" "+m.getValue());
-//        }
+        for (Map.Entry m : map.entrySet()) {
+            System.out.println(m.getKey()+" "+m.getValue());
+        }
 
-        System.out.println(map.remove(4));
-        System.out.println("Removed value printing : "+map.get(4));
-        System.out.println(map);
+//        System.out.println(map.remove(4));
+//        System.out.println("Removed value printing : "+map.get(4));
+//        System.out.println(map);
 
     }
 }
