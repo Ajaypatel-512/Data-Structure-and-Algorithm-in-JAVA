@@ -2,6 +2,7 @@ package Map_Interface.HashMap;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class CheckIfArrayPairsAreDivisibleByK {
 
@@ -47,10 +48,12 @@ public class CheckIfArrayPairsAreDivisibleByK {
     public static void main(String[] args) {
         int[] arr = {1,2,3,4,5,10,6,7,8,9};
         int k = 5;
-        System.out.println(canArrange(arr,k));
+        System.out.println(canArrange1(arr,k));
+        System.out.println(canArrange2(arr,k));
     }
 
-    public static boolean canArrange(int[] arr, int k) {
+    // 1st Solution
+    public static boolean canArrange1(int[] arr, int k) {
         Map<Integer,Integer> map = new HashMap<>();
         for (int x: arr) {
             int rem = x%k; // for positive value
@@ -68,6 +71,33 @@ public class CheckIfArrayPairsAreDivisibleByK {
                 return false;
             }
         }
+        return true;
+    }
+
+    // 2nd Solution
+    public static boolean canArrange2(int[] arr, int k) {
+        Map<Integer,Integer> map = new HashMap<>();
+        for (int x: arr) {
+            //int rem = x%k; // for positive value
+            int rem = (x%k + k) % k; // for negative value
+            map.put(rem,map.getOrDefault(rem,0)+1);
+        }
+
+        for(int x : arr){
+            int rem = (x%k+k)%k;
+            if(rem==0) {
+                if(map.get(rem)%2==1){
+                    return false;
+                }
+                continue;
+            }
+
+            Integer p = map.get(rem) ;
+            Integer q = map.get(k-rem);
+            if(!Objects.equals(p, q))
+                return false;
+        }
+
         return true;
     }
 }
