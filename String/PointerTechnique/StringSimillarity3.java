@@ -1,5 +1,8 @@
 package String.PointerTechnique;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 public class StringSimillarity3 {
 
     /**
@@ -47,11 +50,13 @@ public class StringSimillarity3 {
      * */
 
     public static void main(String[] args) {
-        System.out.println(areSentencesSimilar("My roy","My name is roy"));
+//        System.out.println(areSentencesSimilar1("My roy","My name is roy"));
+
+        System.out.println(areSentencesSimilar2("My roy","My name is roy"));
     }
 
     //SOLUTION 1 - 2 pointer approach O(s1Len + s2Len)
-    public static boolean areSentencesSimilar(String sentence1, String sentence2) {
+    public static boolean areSentencesSimilar1(String sentence1, String sentence2) {
         int s1Len = sentence1.length();
         int s2Len = sentence2.length();
 
@@ -80,6 +85,45 @@ public class StringSimillarity3 {
         }
 
         return l < k;
+    }
+
+    //SOLUTION 2 - 2 pointer approach O(number of words in shorter string)
+    public static boolean areSentencesSimilar2(String sentence1, String sentence2) {
+        int s1Len = sentence1.length();
+        int s2Len = sentence2.length();
+
+        if (s1Len < s2Len){
+            String temp = sentence1;
+            sentence1 = sentence2;
+            sentence2 = temp;
+        }
+
+        String[] words1 = sentence1.split(" ");
+        String[] words2 = sentence2.split(" ");
+
+        Deque<String> deque1 = new ArrayDeque<>();
+        Deque<String> deque2 = new ArrayDeque<>();
+
+        // Add words from sentences to deques
+        for (String word : words1) {
+            deque1.addLast(word);
+        }
+
+        for (String word : words2) {
+            deque2.addLast(word);
+        }
+
+        while(!deque2.isEmpty() && !deque1.isEmpty() && deque2.peekFirst().equals(deque1.peekFirst())){
+            deque2.removeFirst();
+            deque1.removeFirst();
+        }
+
+        while(!deque2.isEmpty() && !deque1.isEmpty() && deque2.peekLast().equals(deque1.peekLast())){
+            deque2.removeLast();
+            deque1.removeLast();
+        }
+
+        return deque2.isEmpty();
     }
 
 }
