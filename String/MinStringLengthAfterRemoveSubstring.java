@@ -34,6 +34,8 @@ public class MinStringLengthAfterRemoveSubstring {
 
     public static void main(String[] args) {
         System.out.println(minLength1("ABFCACDB"));
+
+        System.out.println(minLength2("ABFCACDB"));
     }
 
     //SOLUTION 1 - Brute Force Approach O(N2)
@@ -56,5 +58,22 @@ public class MinStringLengthAfterRemoveSubstring {
             }
         }
         return s.length();
+    }
+
+    //SOLUTION 2 - Stack Approach O(N) O(N)
+    public static int minLength2(String s) {
+        Stack<Character> stack = new Stack<>();
+
+        for (char ch : s.toCharArray()){
+            if (!stack.isEmpty()){
+                char top = stack.peek();
+                if((top == 'A' && ch == 'B') || (top == 'C' && ch == 'D')){
+                    stack.pop();
+                    continue;
+                }
+            }
+            stack.push(ch);
+        }
+        return stack.size();
     }
 }
