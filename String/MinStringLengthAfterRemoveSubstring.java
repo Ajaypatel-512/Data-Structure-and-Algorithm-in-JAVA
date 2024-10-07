@@ -33,9 +33,11 @@ public class MinStringLengthAfterRemoveSubstring {
      * */
 
     public static void main(String[] args) {
-        System.out.println(minLength1("ABFCACDB"));
+        System.out.println("Using Brute Force : " + minLength1("ABFCACDB"));
 
-        System.out.println(minLength2("ABFCACDB"));
+        System.out.println("Using Stack : " + minLength2("ABFCACDB"));
+
+        System.out.println("Using Two Pointer : " +minLength3("ABFCACDB"));
     }
 
     //SOLUTION 1 - Brute Force Approach O(N2)
@@ -75,5 +77,29 @@ public class MinStringLengthAfterRemoveSubstring {
             stack.push(ch);
         }
         return stack.size();
+    }
+
+    //SOLUTION 3 - Two Pinter Approach O(N) O(1)
+    public static int minLength3(String s) {
+        char[] arr = s.toCharArray();
+        int n = s.length();
+
+        int i = 0;
+        int j = 1;
+
+        while(j<n){
+
+            if(i<0){
+                i++;
+                arr[i] = arr[j];
+            } else if((arr[i] == 'A' && arr[j] == 'B') || (arr[i] == 'C' && arr[j] == 'D')){
+                i--;
+            } else{
+                i++;
+                arr[i] = arr[j];
+            }
+            j++;
+        }
+        return i+1;
     }
 }
