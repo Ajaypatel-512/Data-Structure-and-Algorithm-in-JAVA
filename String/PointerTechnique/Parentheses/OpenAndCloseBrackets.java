@@ -1,4 +1,4 @@
-package String.PointerTechnique;
+package String.PointerTechnique.Parentheses;
 
 import java.util.Stack;
 

@@ -1,6 +1,4 @@
-package Stack.Parentheses;
-
-import java.util.Stack;
+package String.PointerTechnique.Parentheses;
 
 public class MinMoveToMakeValidParentheses {
 
@@ -33,24 +31,25 @@ public class MinMoveToMakeValidParentheses {
         System.out.println(minAddToMakeValid("((("));
     }
 
-    // Solution 1 - Using Stack Approach O(n) O(n)
+    // Solution 2 - Using Pointer Approach O(n) O(1)
     public static int minAddToMakeValid(String s) {
-        Stack<Character> stack = new Stack<>();
+        int open = 0;
+        int close = 0;
 
         for(int i=0; i<s.length(); i++){
             char ch = s.charAt(i);
             if(ch == '('){
-                stack.push(ch);
+                open++;
             } else{
-                if(stack.isEmpty() || stack.peek() == ')'){
-                    stack.push(ch);
+                if(open <=0 ){
+                    close++;
                 }
                 else{
-                    stack.pop();
+                    open--;
                 }
             }
         }
 
-        return stack.size();
+        return close+open;
     }
 }
