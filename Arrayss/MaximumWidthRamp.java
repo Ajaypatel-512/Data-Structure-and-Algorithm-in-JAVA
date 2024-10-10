@@ -46,4 +46,28 @@ public class MaximumWidthRamp {
         }
         return set.isEmpty() ? 0 : Collections.max(set);
     }
+
+    // Solution 2 - O(N2) O(1)
+    public static int maxWidthRam2(int[] nums) {
+        int n = nums.length;
+        int maxWidth = 0;
+        boolean flag = false;
+        for (int i=1; i<n; i++){
+            if (nums[i] >= nums[i-1]){
+                flag = true;
+            }
+        }
+        if (!flag){
+            return 0;
+        }
+
+        for(int i=0; i<n; i++){
+            for (int j=i+maxWidth; j<n; j++){
+                if(nums[i] <= nums[j]){
+                    maxWidth = Math.max(maxWidth,j-i);
+                }
+            }
+        }
+        return maxWidth;
+    }
 }
