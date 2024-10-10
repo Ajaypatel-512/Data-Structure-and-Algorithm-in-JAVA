@@ -1,9 +1,6 @@
 package Arrayss;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class MaximumWidthRamp {
 
@@ -29,7 +26,9 @@ public class MaximumWidthRamp {
 
     public static void main(String[] args) {
         int[] arr = {9,8,1,0,1,9,4,0,4,1};
-        System.out.println(maxWidthRamp(arr));
+//        System.out.println(maxWidthRamp(arr));
+//        System.out.println(maxWidthRamp2(arr));
+        System.out.println(maxWidthRamp3(arr));
     }
 
     // Solution 1 - O(N2) O(N)
@@ -48,7 +47,7 @@ public class MaximumWidthRamp {
     }
 
     // Solution 2 - O(N2) O(1)
-    public static int maxWidthRam2(int[] nums) {
+    public static int maxWidthRamp2(int[] nums) {
         int n = nums.length;
         int maxWidth = 0;
         boolean flag = false;
@@ -66,6 +65,27 @@ public class MaximumWidthRamp {
                 if(nums[i] <= nums[j]){
                     maxWidth = Math.max(maxWidth,j-i);
                 }
+            }
+        }
+        return maxWidth;
+    }
+
+    // Solution 3 Using Stack - O(N) O(N)
+    public static int maxWidthRamp3(int[] nums) {
+        int n = nums.length;
+        int maxWidth = 0;
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i=0; i<n; i++){
+            if (stack.isEmpty() || nums[stack.peek()] > nums[i]){
+                stack.push(i);
+            }
+        }
+
+        for(int i=n-1; i>=0; i--){
+            while(!stack.isEmpty() && nums[stack.peek()] <= nums[i]){
+                maxWidth = Math.max(maxWidth, i-stack.peek());
+                stack.pop();
             }
         }
         return maxWidth;
