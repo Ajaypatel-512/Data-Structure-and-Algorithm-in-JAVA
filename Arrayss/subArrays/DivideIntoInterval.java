@@ -1,10 +1,7 @@
 package Arrayss.subArrays;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class DivideIntoInterval {
     /**
@@ -36,7 +33,7 @@ public class DivideIntoInterval {
 
     public static void main(String[] args) {
         int[][] arr = {{5,10},{6,8},{1,5},{2,3},{1,10}};
-        System.out.println(minGroups2(arr));
+        System.out.println(minGroups3(arr));
     }
 
 
@@ -101,6 +98,34 @@ public class DivideIntoInterval {
         }
 
         return maxOverlap;
+
+    }
+
+    // Solution 3 using MIN Heap O(nlogn) O(n)
+    public static int minGroups3(int[][] intervals) {
+        int n = intervals.length;
+
+        Arrays.sort(intervals,new Comparator<int[]>() {
+            @Override
+            public int compare(int[] a, int[] b) {
+                return a[0] - b[0];
+            }
+        });
+
+        PriorityQueue<Integer> endArray = new PriorityQueue<>();
+        endArray.add(intervals[0][1]);
+
+        for (int i=1; i<n; i++){
+            int currStart = intervals[i][0];
+            int currEnd = intervals[i][1];
+
+            if (!endArray.isEmpty() && currStart > endArray.peek()){
+                endArray.poll();
+            }
+            endArray.add(currEnd);
+        }
+
+        return endArray.size();
 
     }
 
