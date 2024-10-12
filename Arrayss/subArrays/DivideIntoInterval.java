@@ -1,5 +1,11 @@
 package Arrayss.subArrays;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
 public class DivideIntoInterval {
     /**
      * 2406. Divide Intervals Into Minimum Number of Groups
@@ -30,9 +36,47 @@ public class DivideIntoInterval {
 
     public static void main(String[] args) {
         int[][] arr = {{5,10},{6,8},{1,5},{2,3},{1,10}};
-        System.out.println(minGroups(arr));
+        System.out.println(minGroups2(arr));
     }
-    public static int minGroups(int[][] intervals) {
+
+
+    // Solution 1 using brute force
+    public static int minGroups1(int[][] intervals) {
+        int n = intervals.length;
+
+        Arrays.sort(intervals,new Comparator<int[]>() {
+            @Override
+            public int compare(int[] a, int[] b) {
+                return a[0] - b[0];
+            }
+        });
+
+        List<Integer> endArray = new ArrayList<>();
+        endArray.add(intervals[0][1]);
+
+        for (int i=1; i<n; i++){
+            int currStart = intervals[i][0];
+            int currEnd = intervals[i][1];
+
+            boolean flag = false;
+            for (int j=0; j<endArray.size(); j++){
+                if (currStart > endArray.get(j)){
+                    endArray.set(j,currEnd);
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag) {
+                endArray.add(currEnd);
+            }
+        }
+
+        return endArray.size();
+
+    }
+
+    //Solution 2 using SLA alogrithm
+    public static int minGroups2(int[][] intervals) {
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
         int n = intervals.length;
@@ -59,4 +103,6 @@ public class DivideIntoInterval {
         return maxOverlap;
 
     }
+
+
 }
