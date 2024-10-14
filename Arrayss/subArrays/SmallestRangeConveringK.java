@@ -1,6 +1,9 @@
 package Arrayss.subArrays;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
 
 public class SmallestRangeConveringK {
 
@@ -26,6 +29,7 @@ public class SmallestRangeConveringK {
      * */
     public static void main(String[] args) {
         int[][] nums = {{4,10,15,24,26},{0,9,12,20},{5,18,22,30}};
+
     }
 
     public static int[] smallestRange(List<List<Integer>> nums) {
@@ -66,5 +70,44 @@ public class SmallestRangeConveringK {
             listIndex[minElementIdx] = nextIdx;
         }
         return resultRange;
+    }
+
+    //Solution 2 using heap
+    public static int[] smallestRange2(List<List<Integer>> nums) {
+        PriorityQueue<int[]> pq = new PriorityQueue<>(new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                return o1[0] - o2[0];
+            }
+        });
+
+        int k = nums.size();
+        int max = Integer.MIN_VALUE;
+
+
+       for (int i=0; i<k; i++){
+           int minVal = nums.get(i).get(0);
+           pq.offer(new int[]{minVal,i,0});
+           max = Math.max(max,minVal);
+       }
+       int[] minRange = {0,Integer.MIN_VALUE};
+       while (true){
+           int top[] = pq.poll();
+           int minElement = top[0];
+           int listIndex = top[1];
+           int elementIndex = top[2];
+
+           if (max - minElement < minRange[1] - minRange[0]){
+               minRange[0] = minElement;
+               minRange[1] = max;
+           }
+           if (elementIndex == nums.get(listIndex).size()-1){
+               break;
+           }
+           int next = nums.get(listIndex).get(elementIndex+1);
+           max = Math.max(max,next);
+           pq.offer(new int[]{next,listIndex,elementIndex+1});
+       }
+       return minRange;
     }
 }
