@@ -1,5 +1,8 @@
 package MathsNumSys;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class MaximumSwapNum {
     /**
      * 670. Maximum Swap
@@ -21,6 +24,7 @@ public class MaximumSwapNum {
      * */
     public static void main(String[] args) {
         System.out.println(maximumSwap1(2736));
+        System.out.println(maximumSwap2(2736));
     }
 
     //Solution 1 Brute Force O(N2)
@@ -46,4 +50,35 @@ public class MaximumSwapNum {
 
         return maxNum;
     }
+
+    //Solution 2
+    public static int maximumSwap2(int num) {
+            ArrayList<Integer> numList = new ArrayList<>();
+            int temp = num;
+
+            while (temp > 0) {
+                numList.add(0, temp % 10);
+                temp /= 10;
+            }
+
+
+            ArrayList<Integer> sortedNumList = new ArrayList<>(numList);
+            Collections.sort(sortedNumList);
+
+
+            for (int i = 0; i < numList.size(); i++) {
+                if (numList.get(i) != sortedNumList.get(sortedNumList.size() - i - 1)) {
+                    int swapIndex = numList.lastIndexOf(sortedNumList.get(sortedNumList.size() - i - 1));
+                    Collections.swap(numList, i, swapIndex);
+                    break;
+                }
+            }
+
+            int result = 0;
+            for (int digit : numList) {
+                result = result * 10 + digit;
+            }
+
+            return result;
+        }
 }
