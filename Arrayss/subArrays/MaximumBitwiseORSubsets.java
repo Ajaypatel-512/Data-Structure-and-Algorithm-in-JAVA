@@ -1,5 +1,8 @@
 package Arrayss.subArrays;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MaximumBitwiseORSubsets {
 
     /**
@@ -38,7 +41,7 @@ public class MaximumBitwiseORSubsets {
 
     public static void main(String[] args) {
         int[] arr = {2,2,2};
-        System.out.println(countMaxOrSubsets(arr));
+        System.out.println(countMaxOrSubsets2(arr));
     }
 
     //Solution 1 O(2^N)
@@ -66,5 +69,46 @@ public class MaximumBitwiseORSubsets {
         int notTakeCount = countSubsets(idx+1,currOR, nums, maxOR);
 
         return takeCount + notTakeCount;
+    }
+
+
+    //Solution 2 Using Memoization for duplicate visits O(n * maxOR) O(n * maxOR)
+    public static int countMaxOrSubsets2(int[] nums) {
+        int maxOR = 0;
+        for (int num: nums){
+            maxOR |= num;
+        }
+
+        int n = nums.length;
+        int[][] t = new int[n + 1][maxOR + 1];
+
+        for (int i = 0; i <= n; i++) {
+            for (int j = 0; j <= maxOR; j++) {
+                t[i][j] = -1;
+            }
+        }
+
+        int currOR = 0;
+        return countSubsets2(0,currOR,nums,maxOR,t);
+
+    }
+
+    private static int countSubsets2(int idx, int currOR, int[] nums, int maxOR,int[][] t) {
+        if (idx == nums.length){
+            if (currOR == maxOR){
+                return 1;
+            }
+            return 0;
+        }
+
+        if (t[idx][currOR] != -1){
+            return t[idx][currOR];
+        }
+
+        int takeCount = countSubsets2(idx+1,currOR | nums[idx], nums, maxOR,t);
+
+        int notTakeCount = countSubsets2(idx+1,currOR, nums, maxOR,t);
+
+        return t[idx][currOR] = takeCount + notTakeCount;
     }
 }
