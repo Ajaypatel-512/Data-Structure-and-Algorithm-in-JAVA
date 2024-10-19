@@ -34,7 +34,7 @@ public class KthBitInNthBinaryString {
     public static void main(String[] args) {
         int n = 4;
         int k = 11;
-        System.out.println(findKthBit(n,k));
+        System.out.println(findKthBit2(n,k));
     }
 
     //Solution 1 Brute Force O(2^n) O(2^n)
@@ -48,6 +48,25 @@ public class KthBitInNthBinaryString {
             }
         }
         return sb.charAt(k-1);
+    }
+
+    //Solution 2 Using Recursion O(n) O(n)
+    public static char findKthBit2(int n, int k) {
+        if(n==1)
+            return '0';
+
+        int l = (1 << n) -1;
+        int mid = l / 2 + 1;
+
+        if (k == mid){
+            return '1';
+        } else if (k < mid){
+            return findKthBit2(n-1,k);
+        } else{
+            int mirror = l - k +1;
+            char c = findKthBit2(n - 1, mirror);
+            return c == '0' ? '1' : '0';
+        }
     }
 
 
