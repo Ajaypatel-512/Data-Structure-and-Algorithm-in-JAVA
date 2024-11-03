@@ -2,7 +2,8 @@ package String;
 
 public class RotateString {
     public static void main(String[] args) {
-        System.out.println(rotateString("abcde","cdeab"));
+//        System.out.println(rotateString("abcde","cdeab"));
+        System.out.println(rotateString2("abcde","cdeab"));
     }
 
     // Solution 1
@@ -19,6 +20,18 @@ public class RotateString {
                 return true;
         }
         return false;
+    }
+
+    // Solution 2
+    public static boolean rotateString2(String s, String goal) {
+        int n = s.length();
+        int m = goal.length();
+
+        if (n != m)
+            return false;
+
+        String sb = s + s;
+        return sb.contains(goal);
     }
 
 }
