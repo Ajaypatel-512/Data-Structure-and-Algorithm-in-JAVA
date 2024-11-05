@@ -3,6 +3,7 @@ package String;
 public class MinNumberOfChangesToMakeBeautifulString {
     public static void main(String[] args) {
         System.out.println(minChanges("1001"));
+        System.out.println(minChanges2("1001"));
     }
 
     //Solution 1 O(n) O(n)
@@ -28,6 +29,19 @@ public class MinNumberOfChangesToMakeBeautifulString {
 
             currentCh = s.charAt(i);
 
+        }
+        return changes;
+    }
+
+    //Solution 2
+    public static int minChanges2(String s) {
+        int n = s.length();
+        int changes = 0;
+
+        for (int i=0; i<n; i+=2){
+            if (s.charAt(i) != s.charAt(i+1)){
+                changes++;
+            }
         }
         return changes;
     }
