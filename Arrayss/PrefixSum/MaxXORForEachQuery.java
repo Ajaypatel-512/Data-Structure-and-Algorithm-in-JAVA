@@ -7,7 +7,7 @@ public class MaxXORForEachQuery {
         int[] nums = {0,1,1,3};
         int maximumBit = 2;
 
-        var result = getMaximumXor(nums,maximumBit);
+        var result = getMaximumXor2(nums,maximumBit);
         System.out.println(Arrays.toString(result));
     }
 
@@ -31,6 +31,27 @@ public class MaxXORForEachQuery {
                 }
             }
 
+        }
+        return result;
+    }
+
+
+    //Solution 1 O(n) O(n)
+    public static int[] getMaximumXor2(int[] nums, int maximumBit) {
+        int n = nums.length;
+        int[] result = new int[n];
+
+        int xor = 0;
+        for (int num:nums){
+            xor = xor ^ num;
+        }
+
+        int mask = (1 << maximumBit) - 1;
+
+        for (int i=0; i<n; i++){
+            int k = xor^mask;
+            result[i] = k;
+            xor = xor ^ nums[n-i-1];
         }
         return result;
     }
