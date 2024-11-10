@@ -7,7 +7,7 @@ public class ShortestSubArrayWithORAtLeastK {
         System.out.println(minimumSubarrayLength(num,k));
     }
 
-    // Solution 1 O(N^2) O(1
+    // Solution 1 O(N) O(1)
     public static int minimumSubarrayLength(int[] nums, int k) {
         int left = 0, right = 0;
         int size = Integer.MAX_VALUE;
