@@ -1,6 +1,8 @@
 package Arrayss.SlidingWindow;
 
 import java.util.Arrays;
+import java.util.Deque;
+import java.util.LinkedList;
 
 public class PowerOfKSizeSubArray {
     /**
@@ -87,7 +89,7 @@ public class PowerOfKSizeSubArray {
         return result;
     }
 
-    //Solution 2 O(n*k) O(n-k+1)
+    //Solution 2 O(n) O(1)
     public static int[] resultsArray2(int[] nums, int k) {
         int n = nums.length;
 
@@ -128,6 +130,41 @@ public class PowerOfKSizeSubArray {
 
             i++;
             j++;
+        }
+
+        return result;
+    }
+
+    //Solution 3 O(n) O(n)
+    public static int[] resultsArray3(int[] nums, int k) {
+        int n = nums.length;
+
+        Deque<Integer> deq = new LinkedList<>(); // Monotonic deque
+        int[] result = new int[n - k + 1];
+        int index = 0;
+
+        for (int j = 0; j < n; j++) {
+            // If deque size equals k, remove the front element
+            if (deq.size() == k) {
+                deq.pollFirst();
+            }
+
+            // If deque is not empty and current element is not consecutive to the last element
+            if (!deq.isEmpty() && deq.peekLast() != nums[j] - 1) {
+                deq.clear();
+            }
+
+            // Add the current element to the deque
+            deq.offerLast(nums[j]);
+
+            // Once we process the first k elements
+            if (j >= k - 1) {
+                if (deq.size() == k) {
+                    result[index++] = deq.peekLast(); // Last element is the max due to monotonic property
+                } else {
+                    result[index++] = -1; // Otherwise, add -1
+                }
+            }
         }
 
         return result;
