@@ -37,7 +37,7 @@ public class DefuseTheBomb {
     }
 
     //Solution 2 Using Sliding Window
-    //T.C : O(n*k)
+    //T.C : O(n)
     //S.C : O(n)
     public static int[] decrypt2(int[] code, int k) {
         int n = code.length;
