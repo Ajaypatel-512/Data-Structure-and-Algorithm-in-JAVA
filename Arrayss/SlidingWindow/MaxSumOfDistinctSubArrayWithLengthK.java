@@ -46,7 +46,7 @@ public class MaxSumOfDistinctSubArrayWithLengthK {
         System.out.println(maximumSubarraySum(num,k));
     }
 
-    //Solution 1 Brute Force
+    //Solution 1 Using Sliding Window
     //T.C : O(n)
     //S.C :O(n)
     public static long maximumSubarraySum(int[] nums, int k) {
