@@ -66,4 +66,36 @@ public class TakeKOfEachCharacterFromLeftAndRight {
         return  res;
     }
 
+    private static int result = Integer.MAX_VALUE;
+
+    private static void solve(String s, int k, int i, int j, int minutes, int[] freq) {
+        if (freq[0] >= k && freq[1] >= k && freq[2] >= k) {
+            result = Math.min(result, minutes);
+            return;
+        }
+        if (i > j)
+            return;
+        int[] tempFreqLeft = freq.clone();
+        tempFreqLeft[s.charAt(i) - 'a']++;
+        solve(s, k, i + 1, j, minutes + 1, tempFreqLeft);
+        int[] tempFreqRight = freq.clone();
+        tempFreqRight[s.charAt(j) - 'a']++;
+        solve(s, k, i, j - 1, minutes + 1, tempFreqRight);
+    }
+
+
+    //Solution 2 Using Recursion
+    //T.C : O(2^n)
+    //S.C : O(1)
+    public static int takeCharacters2(String s, int k) {
+        if (k == 0){
+            return 0;
+        }
+        int[] count = new int[3];
+        int left = 0, right = s.length()-1;
+        int min = 0;
+        solve(s,k,left,right,min,count);
+        return result;
+    }
+
 }
