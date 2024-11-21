@@ -45,7 +45,7 @@ public class CountUnGuardedCellInTheGrid {
     public static void main(String[] args) {
         int m = 4, n = 6;
         int[][] guards = {{0,0},{1,1},{2,3}}, walls = {{0,1},{2,2},{1,4}};
-        System.out.println(countUnguarded(m,n,guards,walls));
+        System.out.println(countUnguarded2(m,n,guards,walls));
     }
 
 
@@ -116,6 +116,67 @@ public class CountUnGuardedCellInTheGrid {
                 break;
             }
             grid[r][j] = 1;
+        }
+    }
+
+
+    //Solution 2 Using DFS
+    //T.C : O(m*n + G*(m+n))
+    //S.C : O(m*n)
+    public static int countUnguarded2(int rows, int cols, int[][] guards, int[][] walls) {
+        int[][] grid = new int[rows][cols];
+
+        for (int[] guard : guards) {
+            int i = guard[0];
+            int j = guard[1];
+            grid[i][j] = 1;
+        }
+
+        for (int[] wall : walls) {
+            int i = wall[0];
+            int j = wall[1];
+            grid[i][j] = 2;
+        }
+
+        for (int[] guard : guards) {
+            int guardRow = guard[0];
+            int guardCol = guard[1];
+
+            dfs(grid, guardRow - 1, guardCol, rows, cols, 1); // UP
+            dfs(grid, guardRow + 1, guardCol, rows, cols, 2); // DOWN
+            dfs(grid, guardRow, guardCol - 1, rows, cols, 3); // LEFT
+            dfs(grid, guardRow, guardCol + 1, rows, cols, 4); // RIGHT
+        }
+
+        int unguardedCount = 0;
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                if (grid[row][col] == 0) {
+                    unguardedCount++;
+                }
+            }
+        }
+
+        return unguardedCount;
+    }
+
+    private static void dfs(int[][] grid, int row, int col, int rows, int cols, int direction) {
+        if (row < 0 || col < 0 || row >= rows || col >= cols || grid[row][col] == 1 || grid[row][col] == 2) {
+            return;
+        }
+
+        // Mark the current cell as visited by a guard's line of sight
+        grid[row][col] = 3;
+
+        // Continue the DFS in the specified direction
+        if (direction == 1) { // UP
+            dfs(grid, row - 1, col, rows, cols, direction);
+        } else if (direction == 2) { // DOWN
+            dfs(grid, row + 1, col, rows, cols, direction);
+        } else if (direction == 3) { // LEFT
+            dfs(grid, row, col - 1, rows, cols, direction);
+        } else { // RIGHT
+            dfs(grid, row, col + 1, rows, cols, direction);
         }
     }
 
