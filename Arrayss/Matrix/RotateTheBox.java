@@ -115,4 +115,47 @@ public class RotateTheBox {
             right--;
         }
     }
+
+
+
+    //Solution 2 Optimized Approach
+    //T.C : O(m*n)
+    //S.C : O(m*n)
+    public static char[][] rotateTheBox2(char[][] box) {
+        int m = box.length;
+        int n = box[0].length;
+
+        char[][] result = new char[n][m];
+
+        //Transpose
+        for (int i=0; i<n; i++){
+            for (int j=0; j<m; j++){
+                result[i][j] = box[j][i];
+            }
+        }
+
+        // For 90 degree - Reverse the array
+        for (char[] arr: result){
+            reverseRow(arr);
+        }
+
+        //Apply The Gravity
+        for (int j=0; j<m; j++){
+            int spaceBottom = n-1;
+            for (int i=n-1; i>=0; i--){
+                if (result[i][j] == '*') {
+                    spaceBottom = i-1;
+                    continue;
+                }
+
+                if (result[i][j] == '#'){
+                    result[i][j] = '.';
+                    result[spaceBottom][j] = '#';
+                    spaceBottom--;
+
+                }
+            }
+        }
+        return result;
+    }
 }
