@@ -56,8 +56,8 @@ public class SlidingPuzzle {
     }
 
     //Solution 1 BFS
-    //T.C : O()
-    //S.C : O()
+    //T.C : O(6!)
+    //S.C : O(6!)
     public static int slidingPuzzle(int[][] board) {
 
         StringBuilder start = new StringBuilder();
