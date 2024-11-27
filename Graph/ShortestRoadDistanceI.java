@@ -125,4 +125,68 @@ public class ShortestRoadDistanceI {
 
         return res;
     }
+
+
+    //Approach-1 - Using Dijkstra's Algorithm - Assuming each edge weight is 1
+    //T.C : O(q * (V+E)) , V = number of vertices and E = number of edges
+    //S.C : O(V+E)
+        private static Map<Integer, List<int[]>> adj1 = new HashMap<>();
+
+        private static int dijkstra(int n) {
+            int[] result = new int[n];
+            Arrays.fill(result, Integer.MAX_VALUE);
+            result[0] = 0;
+
+            PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[0]));
+            pq.offer(new int[]{0, 0}); // {distance, node}
+
+            while (!pq.isEmpty()) {
+                int[] top = pq.poll();
+                int d = top[0];
+                int node = top[1];
+
+                if (node == n - 1) {
+                    return result[n - 1];
+                }
+
+                if (d > result[node]) {
+                    continue;
+                }
+
+                if (!adj1.containsKey(node)) {
+                    continue;
+                }
+
+                for (int[] edge : adj1.get(node)) {
+                    int adjNode = edge[0];
+                    int dist = edge[1];
+                    if (d + dist < result[adjNode]) {
+                        result[adjNode] = d + dist;
+                        pq.offer(new int[]{d + dist, adjNode});
+                    }
+                }
+            }
+
+            return result[n - 1];
+        }
+
+        public int[] shortestDistanceAfterQueries2(int n, int[][] queries) {
+            // Initialize the adjacency list with the default edges
+            for (int i = 0; i < n - 1; ++i) {
+                adj1.computeIfAbsent(i, k -> new ArrayList<>()).add(new int[]{i + 1, 1});
+            }
+
+            int[] result = new int[queries.length];
+
+            // Process each query
+            for (int i = 0; i < queries.length; i++) {
+                int u = queries[i][0];
+                int v = queries[i][1];
+
+                adj1.computeIfAbsent(u, k -> new ArrayList<>()).add(new int[]{v, 1});
+                result[i] = dijkstra(n);
+            }
+
+            return result;
+        }
 }
