@@ -55,7 +55,7 @@ public class ValidArrangementOfPairs {
 
     public static void main(String[] args) {
         int[][] arr = {{5,1},{4,5},{11,9},{9,4}};
-        int[][] result = validArrangement(arr);
+        int[][] result = validArrangement2(arr);
         for (int i=0; i<result.length; i++){
             if (i==result.length-1){
                 System.out.print(Arrays.toString(result[i]));
@@ -106,6 +106,54 @@ public class ValidArrangementOfPairs {
             }
         }
 
+        Collections.reverse(eulerPath);
+        int[][] result = new int[eulerPath.size() - 1][2];
+        for (int i = 0; i < eulerPath.size() - 1; i++) {
+            result[i][0] = eulerPath.get(i);
+            result[i][1] = eulerPath.get(i + 1);
+        }
+
+        return result;
+    }
+
+
+
+    //Solution 2 (DFS Using Recursion) - Hierholzer's Algorithm to find Euler Path
+    //T.C : O(V+E) for normal DFS
+    //S.C : O(V+E)
+    private static Map<Integer, List<Integer>> adj = new HashMap<>();
+    private static List<Integer> eulerPath = new ArrayList<>();
+
+    private static void dfs(int node) {
+        while (adj.containsKey(node) && !adj.get(node).isEmpty()) {
+            int nextNode = adj.get(node).remove(adj.get(node).size() - 1);
+            dfs(nextNode);
+        }
+        eulerPath.add(node);
+    }
+
+    public static int[][] validArrangement2(int[][] pairs) {
+        Map<Integer, Integer> indegree = new HashMap<>();
+        Map<Integer, Integer> outdegree = new HashMap<>();
+
+        for (int[] edge : pairs) {
+            int u = edge[0];
+            int v = edge[1];
+
+            adj.computeIfAbsent(u, k -> new ArrayList<>()).add(v);
+            outdegree.put(u, outdegree.getOrDefault(u, 0) + 1);
+            indegree.put(v, indegree.getOrDefault(v, 0) + 1);
+        }
+
+        int startNode = pairs[0][0];
+        for (int node : adj.keySet()) {
+            if (outdegree.getOrDefault(node, 0) - indegree.getOrDefault(node, 0) == 1) {
+                startNode = node;
+                break;
+            }
+        }
+
+        dfs(startNode);
         Collections.reverse(eulerPath);
         int[][] result = new int[eulerPath.size() - 1][2];
         for (int i = 0; i < eulerPath.size() - 1; i++) {
