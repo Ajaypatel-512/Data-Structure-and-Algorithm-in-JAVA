@@ -2,6 +2,7 @@ package Arrayss;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
 
 public class FindScoreOfAnArrayAfterMarkingAllElements {
 
@@ -47,10 +48,10 @@ public class FindScoreOfAnArrayAfterMarkingAllElements {
 
     public static void main(String[] args) {
         int[] nums = {2,1,3,4,5,2};
-        System.out.println(findScore(nums));
+        System.out.println(findScore2(nums));
     }
 
-    //Solution 1 Using
+    //Solution 1 Brute Force
     //T.C : O(nlogn + n)
     //S.C : O(n)
     public static long findScore(int[] nums) {
@@ -69,6 +70,41 @@ public class FindScoreOfAnArrayAfterMarkingAllElements {
         for (int i=0; i<pairs.size(); i++){
             int smallest = pairs.get(i)[0];
             int idx = pairs.get(i)[1];
+            if (visited[idx]){
+                continue;
+            } else {
+                score += smallest;
+                visited[idx] = true;
+                if (idx+1 < n) visited[idx+1] = true;
+                if (idx-1 >= 0) visited[idx-1] = true;
+            }
+        }
+        return score;
+    }
+
+
+    //Solution 2 Using Min Heap
+    //T.C : O(nlogn)
+    //S.C : O(n)
+    public static long findScore2(int[] nums) {
+        int n = nums.length;
+        // Create a Min Heap (Priority Queue)
+        PriorityQueue<int[]> pairs = new PriorityQueue<>((a, b) -> {
+            if (a[0] != b[0]) return Integer.compare(a[0], b[0]);
+            return Integer.compare(a[1], b[1]);
+        });
+
+        for (int i = 0; i < n; i++) {
+            pairs.offer(new int[]{nums[i], i});
+        }
+
+        boolean[] visited = new boolean[n];
+        long score = 0;
+
+        while(!pairs.isEmpty()){
+            int[] element = pairs.poll();
+            int smallest = element[0];
+            int idx = element[1];
             if (visited[idx]){
                 continue;
             } else {
