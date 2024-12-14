@@ -1,5 +1,6 @@
 package Arrayss.subArrays;
 
+import java.util.PriorityQueue;
 import java.util.TreeMap;
 
 public class ContinuousSubArray {
@@ -68,6 +69,38 @@ public class ContinuousSubArray {
                     map.remove(nums[i]);
                 }
                 i++;
+            }
+
+            count += j - i + 1;
+            j++;
+        }
+
+        return count;
+    }
+
+
+    public static long continuousSubarrays2(int[] nums) {
+        int n = nums.length;
+        PriorityQueue<int[]> minHeap = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
+        PriorityQueue<int[]> maxHeap = new PriorityQueue<>((a, b) -> Integer.compare(b[0], a[0]));
+
+        int i = 0, j = 0;
+        long count = 0;
+
+        while (j < n) {
+            minHeap.offer(new int[]{nums[j], j});
+            maxHeap.offer(new int[]{nums[j], j});
+
+            while (Math.abs(maxHeap.peek()[0] - minHeap.peek()[0]) > 2) {
+                i++;
+
+                while (!maxHeap.isEmpty() && maxHeap.peek()[1] < i) {
+                    maxHeap.poll();
+                }
+
+                while (!minHeap.isEmpty() && minHeap.peek()[1] < i) {
+                    minHeap.poll();
+                }
             }
 
             count += j - i + 1;
