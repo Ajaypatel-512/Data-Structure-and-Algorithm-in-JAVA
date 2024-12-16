@@ -1,6 +1,7 @@
 package Arrayss;
 
 import java.util.Arrays;
+import java.util.PriorityQueue;
 
 public class ArrayAfterKMultiplicationOperationI {
     /**
@@ -73,6 +74,34 @@ public class ArrayAfterKMultiplicationOperationI {
                 }
             }
             nums[smallestIndex] = multiplier*nums[smallestIndex];
+        }
+        return nums;
+    }
+
+    //Solution 1 Using MinHeap
+    //T.C : O(n + kLogn)
+    //S.C : O(heap size)
+    public static int[] getFinalState2(int[] nums, int k, int multiplier) {
+        int n = nums.length;
+
+        PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> {
+            int valueComparison = Integer.compare(a[0], b[0]);
+            if (valueComparison == 0) {
+                return Integer.compare(a[1], b[1]);
+            }
+            return valueComparison;
+        });
+
+        for (int i = 0; i < n; i++) {
+            heap.offer(new int[] { nums[i], i });
+        }
+
+        while (k-->0){
+            int[] ele = heap.poll();
+            int idx = ele[1];
+            int number = ele[0];
+            nums[idx] = multiplier*number;
+            heap.offer(new int[]{nums[idx],idx});
         }
         return nums;
     }
