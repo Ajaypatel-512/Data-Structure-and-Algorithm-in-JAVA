@@ -90,7 +90,7 @@ public class ConstructStringWithRepeatLimit {
     }
 
     //Solution 2 Using Max Heap
-    //T.C : O(26)
+    //T.C : O(n + log26)
     //S.C : O(26)
     public static String repeatLimitedString2(String s, int repeatLimit) {
         int[] frequency = new int[26];
