@@ -1,9 +1,6 @@
 package String;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.TreeMap;
 
 public class ConstructStringWithRepeatLimit {
     /**
@@ -47,7 +44,7 @@ public class ConstructStringWithRepeatLimit {
     public static void main(String[] args) {
         String s = "cczazcc";
         int repeatLimit = 3;
-        System.out.println(repeatLimitedString(s,repeatLimit));
+        System.out.println(repeatLimitedString2(s,repeatLimit));
     }
 
     //Solution 1 Using frequency
@@ -92,5 +89,46 @@ public class ConstructStringWithRepeatLimit {
         return result.toString();
     }
 
+    //Solution 2 Using Max Heap
+    //T.C : O(26)
+    //S.C : O(26)
+    public static String repeatLimitedString2(String s, int repeatLimit) {
+        int[] frequency = new int[26];
+        for (char ch : s.toCharArray()) {
+            frequency[ch - 'a']++;
+        }
 
+        PriorityQueue<Character> heap = new PriorityQueue<>((a,b) -> b-a);
+        for (int i=0; i<frequency.length; i++){
+            if (frequency[i] > 0){
+                heap.offer((char) ('a'+i));
+            }
+        }
+
+        StringBuilder result = new StringBuilder();
+
+        while (!heap.isEmpty()){
+            char ch = heap.poll();
+            int freq = Math.min(frequency[ch-'a'],repeatLimit);
+
+            for (int j=0; j< freq; j++){
+                result.append(ch);
+            }
+            frequency[ch - 'a'] -= freq;
+
+            if (frequency[ch-'a'] >0 && !heap.isEmpty()){
+                char nextChar = heap.poll();
+                result.append(nextChar);
+                frequency[nextChar-'a']--;
+
+                if (frequency[nextChar-'a'] > 0){
+                    heap.offer(nextChar);
+                }
+
+                heap.offer(ch);
+            }
+        }
+
+        return result.toString();
+    }
 }
