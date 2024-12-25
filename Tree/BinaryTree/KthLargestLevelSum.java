@@ -1,6 +1,6 @@
 package Tree.BinaryTree;
 
-import com.sun.source.tree.Tree;
+import Tree.TreeNode;
 
 import java.util.LinkedList;
 import java.util.PriorityQueue;

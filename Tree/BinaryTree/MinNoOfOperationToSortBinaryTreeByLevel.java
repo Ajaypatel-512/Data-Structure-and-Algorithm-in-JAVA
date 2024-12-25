@@ -1,6 +1,5 @@
-package Tree.BinaryTree;
+package Tree;
 
-import java.awt.geom.QuadCurve2D;
 import java.util.*;
 
 public class MinNoOfOperationToSortBinaryTreeByLevel {
