@@ -37,7 +37,7 @@ public class ShiftingLetter2 {
     public static void main(String[] args) {
         String s = "abc";
         int[][] shifts = {{0, 1, 0}, {1, 2, 1}, {0, 2, 1}};
-        System.out.println(shiftingLetters(s, shifts));
+        System.out.println(shiftingLetters2(s, shifts));
     }
 
     //Solution 1 : Using Brute Force
@@ -71,5 +71,50 @@ public class ShiftingLetter2 {
 
     private static char shiftBackward ( char c){
         return (c == 'a') ? 'z' : (char) (c - 1);
+    }
+
+    //Solution 2 : Using Difference Array Technique
+    //Time Complexity : O(n) where n is the length of s
+    //Space Complexity : O(n)
+    public static String shiftingLetters2(String s, int[][] shifts) {
+        int n = s.length();
+        int[] diff = new int[n];
+
+        for (int[] shift : shifts) {
+            int start = shift[0];
+            int end = shift[1];
+            int direction = shift[2];
+
+            if (direction == 1) {
+                diff[start] += 1;
+                if (end + 1 < n) {
+                    diff[end + 1] -= 1;
+                }
+            }
+            else {
+                diff[start] -= 1;
+                if (end + 1 < n) {
+                    diff[end + 1] += 1;
+                }
+            }
+        }
+
+        // Step 2: Compute the prefix sum to get the net shifts for each character
+        for (int i = 1; i < n; i++) {
+            diff[i] += diff[i - 1]; // Add the value from the previous index
+        }
+
+
+        StringBuilder result = new StringBuilder(s);
+        for (int i = 0; i < n; i++) {
+            int shift = diff[i] % 26;
+            if (shift < 0) {
+                shift += 26;
+            }
+            char newChar = (char) (((result.charAt(i) - 'a' + shift) % 26) + 'a');
+            result.setCharAt(i, newChar);
+        }
+
+        return result.toString();
     }
 }
