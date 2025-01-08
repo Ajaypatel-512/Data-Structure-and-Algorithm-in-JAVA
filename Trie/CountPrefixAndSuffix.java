@@ -75,4 +75,35 @@ public class CountPrefixAndSuffix {
         }
         return count;
     }
+
+    //Solution 2 - Trie
+    //Time Complexity - O(n^2)
+    //Space Complexity - O(n)
+    public static int countPrefixSuffixPairsTrie2(String[] words) {
+        int n = words.length;
+        int count = 0;
+
+        for (int j = 0; j < n; j++) {
+            Trie prefixTrie = new Trie();
+            Trie suffixTrie = new Trie();
+
+            prefixTrie.insert(words[j]);
+            String reversed = new StringBuilder(words[j]).reverse().toString();
+            suffixTrie.insert(reversed);
+
+            for (int i = 0; i < j; i++) {
+                if (words[i].length() > words[j].length()) {
+                    continue;
+                }
+
+                String rev = new StringBuilder(words[i]).reverse().toString();
+
+                if (prefixTrie.searchPrefix(words[i]) && suffixTrie.searchPrefix(rev)) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
 }
