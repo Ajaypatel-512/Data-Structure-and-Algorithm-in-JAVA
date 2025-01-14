@@ -41,7 +41,7 @@ public class FindThePrefixCommonArray {
     public static void main(String[] args) {
         int[] A = {1,3,2,4};
         int[] B = {3,1,2,4};
-        int[] result = findThePrefixCommonArray(A, B);
+        int[] result = findThePrefixCommonArray2(A, B);
         System.out.println(Arrays.toString(result));
     }
 
@@ -68,5 +68,30 @@ public class FindThePrefixCommonArray {
         return result;
     }
 
+    //Solution 2: Better Approach
+    //Time Complexity: O(n^2)
+    //Space Complexity: O(n)
+    public static int[] findThePrefixCommonArray2(int[] A, int[] B) {
+        int n = A.length;
+        int[] result = new int[n];
+        Boolean[] isPresentA = new Boolean[n+1];
+        Boolean[] isPresentB = new Boolean[n+1];
+        Arrays.fill(isPresentA, false);
+        Arrays.fill(isPresentB, false);
+
+        for (int i=0; i<n; i++){
+            isPresentA[A[i]] = true;
+            isPresentB[B[i]] = true;
+            int count=0;
+            for (int j=1; j<=n; j++){
+                if(isPresentA[j] && isPresentB[j]){
+                    count++;
+                }
+            }
+            result[i] = count;
+        }
+
+        return result;
+    }
 
 }
