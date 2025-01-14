@@ -1,6 +1,8 @@
 package Arrayss;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FindThePrefixCommonArray {
     /**
@@ -41,7 +43,7 @@ public class FindThePrefixCommonArray {
     public static void main(String[] args) {
         int[] A = {1,3,2,4};
         int[] B = {3,1,2,4};
-        int[] result = findThePrefixCommonArray2(A, B);
+        int[] result = findThePrefixCommonArray3(A, B);
         System.out.println(Arrays.toString(result));
     }
 
@@ -93,5 +95,32 @@ public class FindThePrefixCommonArray {
 
         return result;
     }
+
+
+    //Solution 3: Optimal Approach
+    //Time Complexity: O(n)
+    //Space Complexity: O(n)
+    public static int[] findThePrefixCommonArray3(int[] A, int[] B) {
+        int n = A.length;
+        int[] result = new int[n];
+        HashMap<Integer, Integer> mp = new HashMap();
+
+        int count=0;
+        for (int i=0; i<n; i++){
+            mp.put(A[i], mp.getOrDefault(A[i], 0) + 1);
+            if (mp.get(A[i]) == 2){
+                count+=1;
+            }
+
+            mp.put(B[i], mp.getOrDefault(B[i], 0) + 1);
+            if (mp.get(B[i]) == 2){
+                count+=1;
+            }
+            result[i] = count;
+        }
+
+        return result;
+    }
+
 
 }
