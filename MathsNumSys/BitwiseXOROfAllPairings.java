@@ -1,5 +1,8 @@
 package MathsNumSys;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class BitwiseXOROfAllPairings {
     /**
      * 2425. Bitwise XOR of All Pairings
@@ -56,6 +59,32 @@ public class BitwiseXOROfAllPairings {
         int xor = 0;
         for (int i=0; i<result.length; i++){
             xor ^= result[i];
+        }
+        return xor;
+    }
+
+
+    //Solution 2 : Using HashMap
+    //Time Complexity : O(n+m)
+    //Space Complexity : O(n+m)
+    public static int xorAllNums2(int[] nums1, int[] nums2) {
+        int n = nums1.length;
+        int m = nums2.length;
+
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num: nums1){
+            map.put(num, map.getOrDefault(num, 0)+m);
+        }
+
+        for (int num: nums2){
+            map.put(num, map.getOrDefault(num, 0)+n);
+        }
+
+        int xor = 0;
+        for (int num: map.keySet()){
+            if (map.get(num) %2 != 0){
+                xor ^= num;
+            }
         }
         return xor;
     }
