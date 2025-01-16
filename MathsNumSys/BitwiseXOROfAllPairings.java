@@ -88,4 +88,26 @@ public class BitwiseXOROfAllPairings {
         }
         return xor;
     }
+
+    //Solution 3: Optimized
+    //Time Complexity : O(n+m)
+    //Space Complexity : O(1)
+    public static int xorAllNums3(int[] nums1, int[] nums2) {
+        int n = nums1.length;
+        int m = nums2.length;
+        int xor = 0;
+
+        if (n % 2 != 0){
+            for (int num: nums2){
+                xor ^= num;
+            }
+        }
+
+        if (m % 2 != 0){
+            for (int num: nums1){
+                xor ^= num;
+            }
+        }
+        return xor;
+    }
 }
