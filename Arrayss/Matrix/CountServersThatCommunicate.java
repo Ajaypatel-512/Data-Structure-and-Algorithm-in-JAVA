@@ -81,4 +81,35 @@ public class CountServersThatCommunicate {
         }
         return count;
     }
+
+    //Solution 1 : Better Approach
+    //Time Complexity : O(m*n)
+    //Space Complexity : O(m+n)
+    public static int countServers2(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+
+        int[] indexColCount = new int[n];
+        int[] indexRowCount = new int[m];
+
+        // Preprocessing
+        for (int row = 0; row < m; row++) {
+            for (int col = 0; col < n; col++) {
+                if (grid[row][col] == 1) {
+                    indexColCount[col]++;
+                    indexRowCount[row]++;
+                }
+            }
+        }
+
+        int resultServers = 0;
+        for (int row = 0; row < m; row++) {
+            for (int col = 0; col < n; col++) {
+                if (grid[row][col] == 1 && (indexColCount[col] > 1 || indexRowCount[row] > 1)) {
+                    resultServers++;
+                }
+            }
+        }
+        return resultServers;
+    }
 }
