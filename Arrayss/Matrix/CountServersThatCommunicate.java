@@ -1,5 +1,7 @@
 package Arrayss.Matrix;
 
+import java.util.Arrays;
+
 public class CountServersThatCommunicate {
     /**
      * You are given a map of a server center, represented as a m * n integer matrix grid, where 1 means that on that cell there is a server and 0 means that it is no server. Two servers are said to communicate if they are on the same row or on the same column.
@@ -110,6 +112,49 @@ public class CountServersThatCommunicate {
                 }
             }
         }
+        return resultServers;
+    }
+
+
+    //Solution 3 : Best Approach
+    //Time Complexity : O(m*n)
+    //Space Complexity : O(m+n)
+    public static int countServers3(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+
+        int[] colServerCount = new int[n];
+        int[] rowAkelaServerCol = new int[m];
+        Arrays.fill(rowAkelaServerCol, -1);
+
+        int resultServers = 0;
+
+        for (int row = 0; row < m; row++) {
+            int countServersRow = 0;
+            for (int col = 0; col < n; col++) {
+                if (grid[row][col] == 1) {
+                    countServersRow++;
+                    colServerCount[col]++;
+                    rowAkelaServerCol[row] = col;
+                }
+            }
+
+            if (countServersRow > 1) {
+                resultServers += countServersRow;
+                rowAkelaServerCol[row] = -1; // no akela server in this row
+            }
+        }
+
+        // Check Akela servers in each row
+        for (int row = 0; row < m; row++) {
+            if (rowAkelaServerCol[row] != -1) {
+                int col = rowAkelaServerCol[row];
+                if (colServerCount[col] > 1) {
+                    resultServers++;
+                }
+            }
+        }
+
         return resultServers;
     }
 }
