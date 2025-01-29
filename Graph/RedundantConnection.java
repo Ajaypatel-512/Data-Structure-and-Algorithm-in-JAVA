@@ -50,12 +50,18 @@ public class RedundantConnection {
         for (int[] edge : edges) {
             int u = edge[0], v = edge[1];
 
+            // For DFS
             if (adj.containsKey(u) && adj.containsKey(v)) {
                 boolean[] visited = new boolean[n + 1];
                 if (dfs(adj, u, v, visited)) {
                     return edge;
                 }
             }
+
+            // For BFS
+            //if (adj.containsKey(u) && adj.containsKey(v) && bfs(adj, u, v)) {
+            //    return edge;
+            //}
 
             adj.putIfAbsent(u, new ArrayList<>());
             adj.putIfAbsent(v, new ArrayList<>());
@@ -74,6 +80,30 @@ public class RedundantConnection {
             if (visited[ngbr]) continue;
             if (dfs(adj, ngbr, v, visited)) {
                 return true;
+            }
+        }
+        return false;
+    }
+
+
+    // Approach-2 - Using BFS
+    //Time Complexity : O(n^2)
+    //Space Complexity : O(n)
+    int n;
+    public boolean bfs(Map<Integer, List<Integer>> mp, int start, int end) {
+        boolean[] visited = new boolean[n + 1];
+        Queue<Integer> que = new LinkedList<>();
+        que.offer(start);
+
+        while (!que.isEmpty()) {
+            int curr = que.poll();
+            visited[curr] = true;
+            if (curr == end) return true;
+
+            for (int x : mp.get(curr)) {
+                if (!visited[x]) {
+                    que.offer(x);
+                }
             }
         }
         return false;
