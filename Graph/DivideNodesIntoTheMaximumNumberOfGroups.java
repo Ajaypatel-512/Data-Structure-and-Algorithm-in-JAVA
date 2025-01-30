@@ -55,6 +55,9 @@ public class DivideNodesIntoTheMaximumNumberOfGroups {
         System.out.println(magnificentSets(n, edges));
     }
 
+    //Solution 1 : Using BFS and DFS
+    // Time Complexity: O(V + E)
+    // Space Complexity: O(V + E)
     public static int magnificentSets(int n, int[][] edges) {
         List<List<Integer>> adj = new ArrayList<>();
         n++; // Increment to use 1-based indexing
