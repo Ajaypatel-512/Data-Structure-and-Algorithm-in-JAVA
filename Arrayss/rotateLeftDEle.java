@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class rotateLeftDEle {
     public static void main(String[] args) {
         int[] arr = {1,2,3,4,5,6,7};
-        int d = 2;
+        int d = 1;
         int n = arr.length;
         rotate(arr,n,d);
         System.out.println(Arrays.toString(arr));
