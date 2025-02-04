@@ -56,4 +56,23 @@ public class MaximumAscendingSubarraySum {
         }
         return maxSum;
     }
+
+    //Solution 2 : Optimized
+    //Time Complexity : O(n)
+    //Space Complexity : O(1)
+    public static int maxAscendingSum2(int[] nums) {
+        int n = nums.length;
+        int maxSum = 0;
+        int sum = nums[0];
+
+        for (int i=1; i<n; i++) {
+            if(nums[i] > nums[i-1]){
+                sum += nums[i];
+            } else {
+                maxSum = Math.max(maxSum, sum);
+                sum = nums[i];
+            }
+        }
+        return Math.max(maxSum, sum);
+    }
 }
