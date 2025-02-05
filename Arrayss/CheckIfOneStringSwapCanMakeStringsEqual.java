@@ -59,4 +59,33 @@ public class CheckIfOneStringSwapCanMakeStringsEqual {
         }
         return false;
     }
+
+    //Solution 2 - Using Two Pointers
+    //Time Complexity - O(n)
+    //Space Complexity - O(1)
+    public static boolean areAlmostEqual2(String s1, String s2) {
+        int l1 = s1.length();
+        int l2 = s2.length();
+
+        int count = 1;
+        int i = 0;
+        int j = 0;
+
+       for(int p=0; p<l1; p++){
+           if(s1.charAt(p) != s2.charAt(p)){
+               count++;
+               if (count > 2) {
+                   return false;
+               } else {
+                   if (count == 1) {
+                       i = p;
+                   } else {
+                       j = p;
+                   }
+               }
+           }
+       }
+       return s1.charAt(i) == s2.charAt(j) && s1.charAt(j) == s2.charAt(i);
+
+    }
 }
