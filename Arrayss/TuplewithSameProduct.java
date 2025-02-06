@@ -1,5 +1,7 @@
 package Arrayss;
 
+import java.util.Arrays;
+
 public class TuplewithSameProduct {
     /**
      * 1726. Tuple with Same Product
@@ -33,7 +35,7 @@ public class TuplewithSameProduct {
      * */
     public static void main(String[] args) {
         int[] nums = {2,3,4,6};
-        System.out.println(tupleSameProduct(nums));
+        System.out.println(tupleSameProduct2(nums));
     }
 
     //Solution 1 : Brute Force
@@ -58,5 +60,30 @@ public class TuplewithSameProduct {
             }
         }
         return (count/2)*8;
+    }
+
+    //Solution 2 : Brute Force
+    //Time Complexity : O(n^4)
+    //Space Complexity : O(1)
+    public static int tupleSameProduct2(int[] nums) {
+        int n = nums.length;
+        int count = 0;
+        Arrays.sort(nums);
+        for(int i=0; i<n; i++){
+            for (int j = n-1; j>i; j--){
+                for (int k = i+1; k<j; k++){
+                    for(int l = j-1; l>k; l--){
+                        if (i != k && i!= l && j!=k && j!=l) {
+                            int p1 = nums[i] * nums[j];
+                            int p2 = nums[k] * nums[l];
+                            if (p1 == p2) {
+                                count++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return (count)*8;
     }
 }
