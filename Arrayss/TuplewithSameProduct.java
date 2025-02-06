@@ -1,8 +1,6 @@
 package Arrayss;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class TuplewithSameProduct {
     /**
@@ -114,5 +112,27 @@ public class TuplewithSameProduct {
             }
         }
         return (count)*8;
+    }
+
+    //Solution 4 : Optimized
+    //Time Complexity : O(n^2)
+    //Space Complexity : O(n)
+    public static int tupleSameProduct4(int[] nums) {
+        int n = nums.length;
+        int count = 0;
+
+        Map<Integer,Integer> mp = new HashMap<>();
+
+        for(int i=0; i<n; i++){
+            for (int j = i+1; j<n; j++){
+                int product = nums[i] * nums[j];
+                mp.put(product, mp.getOrDefault(product,0)+1);
+            }
+        }
+
+        for (int val : mp.values()){
+            count += val*(val-1)/2;
+        }
+        return count*8;
     }
 }
