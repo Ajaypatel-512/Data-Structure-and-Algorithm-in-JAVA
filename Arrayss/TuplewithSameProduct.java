@@ -1,6 +1,8 @@
 package Arrayss;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class TuplewithSameProduct {
     /**
@@ -80,6 +82,33 @@ public class TuplewithSameProduct {
                                 count++;
                             }
                         }
+                    }
+                }
+            }
+        }
+        return (count)*8;
+    }
+
+    //Solution 3 : Optimized
+    //Time Complexity : O(n^3)
+    //Space Complexity : O(n)
+    public static int tupleSameProduct3(int[] nums) {
+        int n = nums.length;
+        int count = 0;
+        Arrays.sort(nums);
+
+        for(int i=0; i<n; i++){
+            for (int j = n-1; j>i; j--){
+                int product = nums[i] * nums[j];
+                Set<Integer> st = new HashSet<>();
+
+                for (int k=i+1; k<j; k++){
+                    if (product % nums[k] == 0){
+                        int div = product / nums[k];
+                        if (st.contains(div)){
+                            count++;
+                        }
+                        st.add(nums[k]);
                     }
                 }
             }
