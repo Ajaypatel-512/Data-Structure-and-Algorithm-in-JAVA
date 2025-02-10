@@ -76,4 +76,44 @@ public class ClearDigits {
         return "";
 
     }
+
+
+    //Solution 2 : Using Brute Force
+    //Time Complexity: O(n^2)
+    //Space Complexity: O(1)
+    public static String clearDigits2(String s) {
+        int n = s.length();
+        StringBuilder sb = new StringBuilder(s);
+        int i=0;
+
+        while (i < sb.length()) {
+            if (Character.isDigit(sb.charAt(i))) {
+                sb.deleteCharAt(i);
+                if (i > 0) {
+                    sb.deleteCharAt(i - 1);
+                    i--;
+                }
+            } else {
+                i++;
+            }
+        }
+        return sb.toString();
+    }
+
+    // Approach-3 (Using result string to avoid reverse call)
+    // Time Complexity: O(n)
+    // Space Complexity: O(1)
+    public static String clearDigits3(String s) {
+        StringBuilder result = new StringBuilder();
+
+        for (char ch : s.toCharArray()) {
+            if (ch >= 'a' && ch <= 'z') {
+                result.append(ch);
+            } else if (result.length() > 0) {
+                result.deleteCharAt(result.length() - 1);
+            }
+        }
+        return result.toString();
+        }
+
 }
