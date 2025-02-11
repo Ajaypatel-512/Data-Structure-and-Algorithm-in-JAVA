@@ -107,7 +107,7 @@ public class RemoveAllOccurrencesOfASubstring {
         return true;
     }
 
-    //Solution 2 - Using String As A String
+    //Solution 3 - Using String As A String
     //Time Complexity - O(n)
     //Space Complexity - O(1)
     public static String removeOccurrences3(String s, String part) {
@@ -123,6 +123,17 @@ public class RemoveAllOccurrencesOfASubstring {
         }
 
         return result.toString();
+    }
+
+    //Solution 4 - Using String Replace
+    //Time Complexity - O(n)
+    //Space Complexity - O(1)
+    public static String removeOccurrences4(String s, String part) {
+        while (s.contains(part)){
+            s = s.replaceFirst(part,"");
+        }
+
+        return s;
     }
 
 }
