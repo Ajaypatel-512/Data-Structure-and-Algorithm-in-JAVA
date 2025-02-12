@@ -84,4 +84,22 @@ public class MaxSumOfPairWithEqualSumOfDigits {
         }
         return result;
     }
+
+    //Solution 3 : Optimised Approach
+    //Time Complexity: O(n)
+    //Space Complexity: O(1)
+    public static int maximumSum3(int[] nums) {
+        int n = nums.length;
+        int[] arr = new int[82];
+        int result = -1;
+
+        for(int i=0; i<n; i++){
+            int digitSum = getSum(nums[i]);
+            if (arr[digitSum] > 0) {
+                result = Math.max(result, arr[digitSum] + nums[i]);
+            }
+            arr[digitSum] = Math.max(arr[digitSum], nums[i]);
+        }
+        return result;
+    }
 }
