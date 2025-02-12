@@ -1,5 +1,8 @@
 package Arrayss;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MaxSumOfPairWithEqualSumOfDigits {
     /**
      * You are given a 0-indexed array nums consisting of positive integers. You can choose two indices i and j, such that i != j, and the sum of digits of the number nums[i] is equal to that of nums[j].
@@ -61,5 +64,24 @@ public class MaxSumOfPairWithEqualSumOfDigits {
             num /= 10;
         }
         return sum;
+    }
+
+
+    //Solution 2 : Better Approach
+    //Time Complexity: O(n*k) where k is the number of digits in the maximum number in the array
+    //Space Complexity: O(n)
+    public static int maximumSum2(int[] nums) {
+        int n = nums.length;
+        Map<Integer, Integer> map = new HashMap<>();
+        int result = -1;
+
+        for(int i=0; i<n; i++){
+            int digitSum = getSum(nums[i]);
+            if (map.containsKey(digitSum)) {
+                result = Math.max(result, map.get(digitSum) + nums[i]);
+            }
+            map.put(digitSum, Math.max(map.getOrDefault(digitSum, 0), nums[i]));
+        }
+        return result;
     }
 }
