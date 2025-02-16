@@ -38,6 +38,9 @@ public class ConstructTheLexicographicallyLargestValidSequence {
         System.out.println(constructDistancedSequence(n));
     }
 
+    //Solution 1 - Backtracking
+    //Time Complexity: O(n!)
+    //Space Complexity: O(n)
     public static int[] constructDistancedSequence(int n) {
         int[] result = new int[2 * n - 1];
         Arrays.fill(result, -1);
