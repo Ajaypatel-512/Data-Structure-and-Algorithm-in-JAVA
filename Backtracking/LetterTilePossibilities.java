@@ -73,4 +73,35 @@ public class LetterTilePossibilities {
             curr.deleteCharAt(curr.length() - 1);
         }
     }
+
+    //Solution 2 : Using Backtracking + Count of each character
+    //Time Complexity : O(n!)
+    //Space Complexity : O(n) where n is the length of the string
+    private static int total;
+
+    private static void findSequences(int[] count) {
+        total++;
+
+        for (int pos = 0; pos < 26; pos++) {
+            if (count[pos] == 0) {
+                continue;
+            }
+
+            count[pos]--;
+            findSequences(count);
+            count[pos]++;
+        }
+    }
+
+    public static int numTilePossibilities2(String tiles) {
+        total = 0;
+
+        int[] count = new int[26];
+        for (char c : tiles.toCharArray()) {
+            count[c - 'A']++;
+        }
+
+        findSequences(count);
+        return total - 1;
+    }
 }
