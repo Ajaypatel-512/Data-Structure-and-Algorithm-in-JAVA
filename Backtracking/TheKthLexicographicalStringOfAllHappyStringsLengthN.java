@@ -42,20 +42,20 @@ public class TheKthLexicographicalStringOfAllHappyStringsLengthN {
      * */
     public static void main(String[] args) {
         int n = 1, k = 3;
-        System.out.println(getHappyString1(n, k)); // c
+        System.out.println(getHappyString2(n, k)); // c
         n = 1; k = 4;
-        System.out.println(getHappyString1(n, k)); // ""
+        System.out.println(getHappyString2(n, k)); // ""
         n = 3; k = 9;
-        System.out.println(getHappyString1(n, k)); // cab
+        System.out.println(getHappyString2(n, k)); // cab
     }
 
 
-    public static String getHappyString1(int n, int k) {
-        //Generate All Happy Strings
-
-        //Sort them in lexicographical order
-        //Return kth string
-    }
+//    public static String getHappyString1(int n, int k) {
+//        //Generate All Happy Strings
+//
+//        //Sort them in lexicographical order
+//        //Return kth string
+//    }
 
     //Solution 2 : Generate all happy strings and return kth string
     //Time Complexity : O(n * 3 * 2^(n-1)) ~= O(n*2^n)
