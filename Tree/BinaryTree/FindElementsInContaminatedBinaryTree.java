@@ -3,6 +3,8 @@ package Tree.BinaryTree;
 import Tree.TreeNode;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Set;
 
 public class FindElementsInContaminatedBinaryTree {
@@ -77,8 +79,8 @@ public class FindElementsInContaminatedBinaryTree {
         root.right.right = new TreeNode(-1);
         root.right.right.right = new TreeNode(-1);
         root.right.right.right.right = new TreeNode(-1);
-        FindElements(root);
-        System.out.println(find(1));
+        FindElements1(root);
+        System.out.println(find1(2));
     }
 
     //Solution 1 : Using DFS
@@ -101,5 +103,35 @@ public class FindElementsInContaminatedBinaryTree {
 
     public static boolean find(int target) {
         return set.contains(target);
+    }
+
+    //Solution 2 : Using BFS
+    //Time Complexity : O(n)
+    //Space Complexity : O(n)
+    static Set<Integer> set1 = new HashSet<>();
+    static void bfs(TreeNode root, int x){
+        Queue<TreeNode> que = new LinkedList<>();
+        que.add(root);
+
+        while (!que.isEmpty()){
+            TreeNode temp = que.poll();
+            set1.add(temp.val);
+            if (temp.left != null){
+                temp.left.val = 2*x+1;
+                que.add(temp.left);
+            }
+            if (temp.right != null){
+                temp.right.val = 2*x+2;
+                que.add(temp.right);
+            }
+        }
+    }
+    public static void FindElements1(TreeNode root) {
+        set1.clear();
+        bfs(root, 0);
+    }
+
+    public static boolean find1(int target) {
+        return set1.contains(target);
     }
 }
