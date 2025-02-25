@@ -1,5 +1,7 @@
 package Arrayss.subArrays;
 
+import java.util.Arrays;
+
 public class NumberOfSubArraysWithOddSum {
     /**
      * 1524. Number of Sub-arrays With Odd Sum
@@ -77,5 +79,33 @@ public class NumberOfSubArraysWithOddSum {
             }
         }
         return count;
+    }
+
+    //Solution 3 : Optimal Approach
+    //Time Complexity: O(n)
+    //Space Complexity: O(1)
+    public static int numOfSubarray3(int[] arr) {
+        int n = arr.length;
+        int M = (int)1e9 + 7;
+
+        int count = 0;
+        int odd = 0;
+        int even = 1;
+        int sum = 0;
+
+        for (int i = 0; i < n; i++) {
+            sum += arr[i];
+
+            if (sum % 2 == 0) { // odd + even = odd
+                count = (count + odd) % M;
+                even++;
+            } else { // even + odd = odd
+                count = (count + even) % M;
+                odd++;
+            }
+        }
+
+        return count;
+
     }
 }
