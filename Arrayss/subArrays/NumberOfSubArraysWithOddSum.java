@@ -59,4 +59,23 @@ public class NumberOfSubArraysWithOddSum {
         }
         return count;
     }
+
+    //Solution 2 : Better Force
+    //Time Complexity: O(n^2)
+    //Space Complexity: O(1)
+    public static int numOfSubarrays2(int[] arr) {
+        int n = arr.length;
+
+        int count= 0;
+        for(int i=0; i<n; i++){
+            int sum=0;
+            for (int j=i; j<n; j++){
+                sum += arr[j];
+                if (sum % 2 != 0){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
 }
