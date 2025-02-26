@@ -51,4 +51,30 @@ public class MaximumAbsoluteSumOfAnySubarray {
         }
         return max;
     }
+
+    //Solution 2 : Kadane's Algorithm
+    //Time Complexity : O(n)
+    //Space Complexity : O(1)
+    public static int maxAbsoluteSum2(int[] nums) {
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+        int sum = 0;
+
+        for (int i : nums){
+            sum += i;
+            max = Math.max(max,sum);
+            if (sum < 0){
+                sum = 0;
+            }
+        }
+        sum = 0;
+        for (int i : nums){
+            sum += i;
+            min = Math.min(min,sum);
+            if (sum < 0){
+                sum = 0;
+            }
+        }
+        return Math.max(Math.abs(max),Math.abs(min));
+    }
 }
