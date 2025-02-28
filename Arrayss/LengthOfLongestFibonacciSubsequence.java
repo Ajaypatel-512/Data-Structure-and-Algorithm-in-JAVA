@@ -65,4 +65,37 @@ public class LengthOfLongestFibonacciSubsequence {
         return ans;
     }
 
+    //Solution 2 : Using Recursion
+    //Time Complexity: O(n^2)
+    //Space Complexity: O(n^2)
+    public static int lenLongestFibSubseq2(int[] arr) {
+        final int n = arr.length;
+        Map<Integer,Integer> map = new HashMap<>();
+
+        for (int i = 0; i < n; i++){
+            map.put(arr[i], i);
+        }
+
+        int max_length = 0;
+
+       for (int j = 1; j<n; j++){
+           for (int k = j+1; k<n; k++){
+               int length = solve(j, k,arr, map);
+               if (length >= 3){
+                   max_length = Math.max(max_length, length);
+               }
+           }
+       }
+       return max_length;
+    }
+
+    private static int solve(int j, int k, int[] arr, Map<Integer, Integer> map) {
+        int target = arr[k] - arr[j];
+        if (map.containsKey(target) && map.get(target) < j){
+            int i = map.get(target);
+            return solve(i, j, arr, map) + 1;
+        }
+        return 2;
+    }
+
 }
