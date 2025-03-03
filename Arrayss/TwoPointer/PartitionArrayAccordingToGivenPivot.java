@@ -82,4 +82,45 @@ public class PartitionArrayAccordingToGivenPivot {
     }
 
 
+    //Solution 1 : Using 3 Pointers
+    //Time Complexity : O(n)
+    //Space Complexity : O(n)
+    public static int[] pivotArray2(int[] nums, int pivot) {
+        int n = nums.length;
+        int[] result = new int[n];
+
+        int lower = 0;
+        int equal = 0;
+
+        for (int i = 0; i<n; i++) {
+            if (nums[i] < pivot) {
+                lower++;
+            }
+            if (nums[i] == pivot) {
+                equal++;
+            }
+        }
+
+        int lowerPointer = 0;
+        int equalPointer = lower;
+        int higherPointer = lower + equal;
+        for (int i=0; i<n;i++){
+            if (nums[i] < pivot) {
+                result[lowerPointer] = nums[i];
+                lowerPointer++;
+            }
+            if (nums[i] == pivot) {
+                result[equalPointer] = nums[i];
+                equalPointer++;
+            }
+            if (nums[i] > pivot) {
+                result[higherPointer] = nums[i];
+                higherPointer++;
+            }
+        }
+
+        return result;
+    }
+
+
 }
