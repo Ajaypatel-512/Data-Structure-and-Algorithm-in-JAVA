@@ -67,6 +67,9 @@ public class NumberOfAlternatingGroups {
         System.out.println(numberOfAlternatingGroups(colors, k));
     }
 
+    //Solution 1 - Using Sliding Window
+    //Time Complexity - O(n)
+    //Space Complexity - O(1)
     public static int numberOfAlternatingGroups(int[] colors, int k) {
         int window = 1;
         int res = 0;
