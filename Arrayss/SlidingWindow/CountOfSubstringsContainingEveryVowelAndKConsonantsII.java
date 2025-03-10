@@ -1,7 +1,9 @@
 package Arrayss.SlidingWindow;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CountOfSubstringsContainingEveryVowelAndKConsonantsII {
     /**
@@ -95,4 +97,76 @@ public class CountOfSubstringsContainingEveryVowelAndKConsonantsII {
         }
         return count;
     }
+
+    //Solution 2 : Using Sliding Window
+    //Time Complexity :
+    //Space Complexity :
+    public static long countOfSubstrings2(String word, int k) {
+        int n = word.length();
+        Map<Character,Integer> map = new HashMap<>();
+
+        // Preprocessing to find index of next consonant
+        int[] nextCons = new int[n];
+        int lastConsIdx = n;
+        for (int i = n - 1; i >= 0; i--) {
+            nextCons[i] = lastConsIdx;
+            if (!isVowel(word.charAt(i))) {
+                lastConsIdx = i;
+            }
+        }
+
+
+        int i=0;
+        int j=0;
+        int cons = 0;
+        long count = 0;
+
+
+        while(j<n){
+            char ch = word.charAt(j);
+            if (isVowel(ch)){
+                map.put(ch,map.getOrDefault(ch, 0) + 1);
+            } else {
+                cons++;
+            }
+
+            while (cons > k) {
+                char ci = word.charAt(i);
+                if (isVowel(ci)) {
+                    map.put(ci, map.get(ci) - 1);
+                    if (map.get(ci) == 0) {
+                        map.remove(ci);
+                    }
+                } else {
+                    cons--;
+                }
+                i++;
+            }
+
+            while (i < n && map.size() == 5 && cons == k) {
+                int idx = nextCons[j];
+                count += idx - j;
+
+                char ci = word.charAt(i);
+                if (isVowel(ci)) {
+                    map.put(ci, map.get(ci) - 1);
+                    if (map.get(ci) == 0) {
+                        map.remove(ci);
+                    }
+                } else {
+                    cons--;
+                }
+                i++;
+            }
+
+            j++;
+        }
+
+        return count;
+    }
+
+    private static boolean isVowel(char charAt) {
+        return charAt=='a' || charAt=='e' || charAt=='i' || charAt=='o' || charAt=='u' ;
+    }
+
 }
