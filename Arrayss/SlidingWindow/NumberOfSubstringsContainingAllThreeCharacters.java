@@ -1,5 +1,8 @@
 package Arrayss.SlidingWindow;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class NumberOfSubstringsContainingAllThreeCharacters {
     /**
      * 1358. Number of Substrings Containing All Three Characters
@@ -51,6 +54,33 @@ public class NumberOfSubstringsContainingAllThreeCharacters {
             }
         }
         return count;
+    }
+
+    //Solution 2 : Sliding Window
+    //Time Complexity : O(n)
+    //Space Complexity : O(1)
+    public static int numberOfSubstrings2(String s) {
+        int result = 0;
+        int n = s.length();
+        int[] map = new int[3];
+
+        int i=0;
+        int j=0;
+
+        while(j<n){
+            char c = s.charAt(j);
+            map[c-'a']++;
+
+            while(map[0] > 0 && map[1] > 0 && map[2] > 0){
+                result += n-j;
+
+                map[s.charAt(i)-'a']--;
+                i++;
+            }
+            j++;
+        }
+
+        return result;
     }
 
 
