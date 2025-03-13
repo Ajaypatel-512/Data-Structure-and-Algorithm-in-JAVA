@@ -98,5 +98,49 @@ public class ZeroArrayTransformationII {
         return true;
     }
 
+    //Solution 2 - Using Difference Array Technique
+    //Time Complexity - O(Q^2 + Q*N) where Q = no of queries, N = length of nums
+    //Space Complexity - O(1)
+    public static int minZeroArray2(int[] nums, int[][] queries) {
+        int N = nums.length;
+        int Q = queries.length;
+
+        if (isAllZero(nums)){
+            return 0;
+        }
+
+        for (int i=0; i<Q; i++){
+            if (checkWithDiffArr(nums,queries,i) == true){
+                return i+1;
+            }
+        }
+        return -1;
+    }
+
+    private static boolean checkWithDiffArr(int[] nums, int[][] queries, int k) {
+        int[] diff = new int[nums.length];
+        for (int i=0; i<=k; i++){
+            int l = queries[i][0];
+            int r = queries[i][1];
+            int val = queries[i][2];
+
+            diff[l] += val;
+            if (r+1<nums.length){
+                diff[r+1] -= val;
+            }
+        }
+
+        int cumm = 0;
+        for (int i=0; i<nums.length; i++){
+            cumm += diff[i];
+            diff[i] = cumm;
+
+            if (nums[i] -diff[i] > 0){
+                return false;
+            }
+        }
+        return true;
+    }
+
 
 }
