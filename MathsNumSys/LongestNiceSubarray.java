@@ -70,4 +70,25 @@ public class LongestNiceSubarray {
         }
         return true;
     }
+
+    //Solution 2 - Using Better Approach
+    //Time Complexity - O(n^2)
+    //Space Complexity - O(1)
+    public static int longestNiceSubarray2(int[] nums) {
+        int n = nums.length;
+        int result = 0;
+
+        for (int i=0; i<n; i++){
+            int mask=0;
+            for (int j=i; j<n; j++){
+                if((mask & nums[j]) != 0) {
+                    break;
+                }
+
+                result = Math.max(result, j - i + 1);
+                mask = (mask | nums[j]);
+            }
+        }
+        return result;
+    }
 }
