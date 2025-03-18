@@ -91,4 +91,26 @@ public class LongestNiceSubarray {
         }
         return result;
     }
+
+    //Solution 3 - Using Sliding Window Approach
+    //Time Complexity - O(n)
+    //Space Complexity - O(1)
+    public static int longestNiceSubarray3(int[] nums) {
+        int n = nums.length;
+        int result = 0;
+        int mask=0;
+        int i=0;
+        int j=0;
+
+        while (j<n){
+            while ((mask & nums[j]) != 0){
+                mask = (mask ^ nums[i]);
+                i++;
+            }
+            result = Math.max(result,j-i+1);
+            mask = (mask | nums[j]);
+            j++;
+        }
+        return result;
+    }
 }
