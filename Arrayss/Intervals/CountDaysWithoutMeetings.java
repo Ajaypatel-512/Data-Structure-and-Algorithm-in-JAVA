@@ -1,5 +1,7 @@
 package Arrayss.Intervals;
 
+import java.util.Arrays;
+
 public class CountDaysWithoutMeetings {
     /**
      * 3169. Count Days Without Meetings
@@ -74,4 +76,27 @@ public class CountDaysWithoutMeetings {
         }
         return count;
     }
+
+    //Solution 1 : Optimized
+    //Time Complexity: O(nlogn) where n is the number of meetings
+    //Space Complexity: O(1)
+    public static int countDays2(int days, int[][] meetings) {
+        Arrays.sort(meetings, (a, b) -> a[0] - b[0]);
+        int end = 0;
+        int start=0;
+        int daysOff = 0;
+
+        for (int i=0; i<meetings.length; i++){
+            if (meetings[i][0] > end){
+                daysOff += meetings[i][0] - end - 1;
+            }
+            end = Math.max(end, meetings[i][1]);
+        }
+
+        if (end < days){
+            daysOff += days - end;
+        }
+        return daysOff;
+    }
+
 }
