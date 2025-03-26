@@ -82,4 +82,37 @@ public class MinimumOperationsToMakeAUniValueGrid {
         }
         return res == Integer.MAX_VALUE ? -1 : res;
     }
+
+    //Solution 2 : Optimal
+    //Time Complexity: O(m * n * log(m * n))
+    //Space Complexity: O(m * n)
+    public static int minOperations2(int[][] grid, int x) {
+        int cnt=0;
+
+        int[] arr = new int[grid[0].length* grid.length];
+        int index = 0;
+        for (int[] row : grid) {
+            for (int num : row) {
+                arr[index++] = num;
+            }
+        }
+        int k=arr.length;
+        int l=0;
+        int ans=0;
+        Arrays.sort(arr);
+        int median = arr[arr.length / 2];
+        for (int i=0;i<arr.length;i++) {
+            int diff = Math.abs(arr[i] - median);
+
+            if (diff % x != 0) {
+                return -1;
+            }
+
+            cnt+=diff / x;
+            System.out.println(cnt);
+
+
+        }
+        return cnt;
+    }
 }
