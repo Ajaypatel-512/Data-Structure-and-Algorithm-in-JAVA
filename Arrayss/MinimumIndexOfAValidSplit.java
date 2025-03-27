@@ -87,7 +87,7 @@ public class MinimumIndexOfAValidSplit {
         return -1;
     }
 
-    //Solution 2 - using Boyer-Moore Voting Algorithm
+    //Solution 2 - Using Majority Element Concept
     //Time complexity: O(n)
     //Space complexity: O(1)
     public static int minimumIndex2(List<Integer> nums) {
