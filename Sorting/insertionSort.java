@@ -4,6 +4,7 @@ import java.util.Arrays;
 /** TIME COMPLEXITY -
 
  * Worst Case - O(N^2)
+ * Best Case - O(N) when array is already sorted
  * Best Case - O(N)
 
  * Stable, Adaptive, used for smaller values of n works good in if array is partially sorted
