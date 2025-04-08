@@ -60,6 +60,7 @@ public class ReverseAString {
         ).reverse().toString();
 
         System.out.println("Reversed: " + reversed);
+        return reversed;
     }
 
     //using 2 pointer
