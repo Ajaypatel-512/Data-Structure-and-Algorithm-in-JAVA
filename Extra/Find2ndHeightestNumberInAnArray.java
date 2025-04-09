@@ -87,5 +87,22 @@ public class Find2ndHeightestNumberInAnArray {
         return set.lower(set.last());
     }
 
+    //Method 7 : Using a HashMap
+    //Time complexity: O(n)
+    //Space complexity: O(n)
+    public static void find2ndHeightestUsingHashMap(){
+        int[] arr = {12, 35, 1, 10, 34, 1};
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int num : arr) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        List<Integer> keys = new ArrayList<>(map.keySet());
+        Collections.sort(keys);
+        if (keys.size() < 2) {
+            throw new NoSuchElementException("No second highest element found");
+        }
+        System.out.println("The second highest number in the array is: " + keys.get(keys.size() - 2));
+    }
+
 
 }
