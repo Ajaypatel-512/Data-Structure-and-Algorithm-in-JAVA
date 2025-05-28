@@ -1,5 +1,7 @@
 package Arrayss;
 
+import java.util.stream.IntStream;
+
 public class BuySellStock {
     /**
      * 121. Best Time to Buy and Sell Stock
@@ -49,6 +51,14 @@ public class BuySellStock {
             }
         }
         return max;
+
+
+//        return IntStream.range(0, prices.length)
+//                .flatMap(i -> IntStream.range(i + 1, prices.length)
+//                        .map(j -> prices[j] - prices[i]))
+//                .filter(profit -> profit > 0)
+//                .max()
+//                .orElse(0);
     }
 
     //Solution 2: Optimal Approach
@@ -64,7 +74,13 @@ public class BuySellStock {
             max = Math.max(max, prices[i] - minPrice);
         }
         return max;
+
+//        AtomicInteger minPrice = new AtomicInteger(Integer.MAX_VALUE);
+//        AtomicInteger maxProfit = new AtomicInteger(0);
+//        Arrays.stream(prices).forEach(price -> {
+//            minPrice.set(Math.min(minPrice.get(), price));
+//            maxProfit.set(Math.max(maxProfit.get(), price - minPrice.get()));
+//        });
+//        return maxProfit.get();
     }
-
-
 }
