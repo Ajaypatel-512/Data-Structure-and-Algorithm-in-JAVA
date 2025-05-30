@@ -38,6 +38,9 @@ public class SearchInsertPosition {
     }
 
 
+    //Solution 1: Using lower Bound
+    //Time Complexity: O(log n)
+    //Space Complexity: O(1)
     public static int searchInsert(int[] nums, int target) {
         int n = nums.length;
         int low = 0;
