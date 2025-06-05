@@ -1,5 +1,7 @@
 package String;
 
+import java.util.Stack;
+
 public class RemoveOutermostParentheses {
     /**
      * 1021. Remove Outermost Parentheses
@@ -67,6 +69,29 @@ public class RemoveOutermostParentheses {
                 count--;
                 if (count > 0) {
                     result.append(c); // Append only if it's not the outermost ')'
+                }
+            }
+        }
+        return result.toString();
+    }
+
+    //Solution 2: Using Stack
+    // Time Complexity: O(n)
+    // Space Complexity: O(n)
+    public static String removeOuterParentheses2(String s) {
+        StringBuilder result = new StringBuilder();
+        Stack<Character> stack = new Stack<>();
+        int start = 0;
+
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (ch == '(') {
+                stack.push(ch);
+            } else {
+                stack.pop();
+                if (stack.isEmpty()) {
+                    result.append(s.substring(start + 1, i));
+                    start = i + 1;
                 }
             }
         }
