@@ -40,6 +40,10 @@ public class CountAndSay {
     public static void main(String[] args) {
         System.out.println(countAndSay(4));
     }
+
+    //Solution 1: Recursive approach
+    // Time Complexity: O(2^n) in the worst case, where n is the input number.
+    // Space Complexity: O(n) for the recursive call stack and the result string.
     public static String countAndSay(int n) {
         if (n == 1) return "1";
 
