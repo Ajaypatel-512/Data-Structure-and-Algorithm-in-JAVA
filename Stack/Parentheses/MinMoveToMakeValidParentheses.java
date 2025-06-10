@@ -33,7 +33,9 @@ public class MinMoveToMakeValidParentheses {
         System.out.println(minAddToMakeValid("((("));
     }
 
-    // Solution 1 - Using Stack Approach O(n) O(n)
+    // Solution 1 - Using Stack Approach
+    // Time Complexity: O(n), where n is the length of the input string s.
+    // Space Complexity: O(n) in the worst case, where n is the length of the input string s.
     public static int minAddToMakeValid(String s) {
         Stack<Character> stack = new Stack<>();
 
@@ -52,5 +54,26 @@ public class MinMoveToMakeValidParentheses {
         }
 
         return stack.size();
+    }
+
+    // Solution 2 - Using Counter Approach
+    // Time Complexity: O(n), where n is the length of the input string s.
+    // Space Complexity: O(1), as we are using only a few integer variables.
+    public static int minAddToMakeValid2(String s) {
+        int open = 0, close = 0;
+
+        for(int i=0; i<s.length(); i++){
+            char ch = s.charAt(i);
+            if(ch == '(') {
+                open++;
+            }else {
+                if(open > 0) {
+                    open--;
+                } else {
+                    close++;
+                }
+            }
+        }
+        return open + close;
     }
 }
