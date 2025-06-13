@@ -63,4 +63,47 @@ public class RemoveNthNodeFromEndOfList {
         slow.next = slow.next.next;
         return head;
     }
+
+    // Solution 2: Count the number of nodes and then find the node to delete
+    // Time Complexity: O(L), where L is the length of the linked list
+    // Space Complexity: O(1), no extra space is used
+    public static ListNode removeNthFromEnd2(ListNode head, int n) {
+        if (head == null) {
+            return null;
+        }
+        int cnt = 0;
+        ListNode temp = head;
+
+        // Count the number of nodes in the linked list
+        while (temp != null) {
+            cnt++;
+            temp = temp.next;
+        }
+
+        // If N equals the total number of nodes, delete the head
+        if (cnt == n) {
+            ListNode newhead = head.next;
+            head = null;
+            return newhead;
+        }
+
+        // Calculate the position of the node to delete (res)
+        int res = cnt - n;
+        temp = head;
+
+        // Traverse to the node just before the one to delete
+        while (temp != null) {
+            res--;
+            if (res == 0) {
+                break;
+            }
+            temp = temp.next;
+        }
+
+        // Delete the Nth node from the end
+        ListNode delNode = temp.next;
+        temp.next = temp.next.next;
+        delNode = null;
+        return head;
+    }
 }
