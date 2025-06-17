@@ -33,7 +33,11 @@ public class palindromeLL {
         ListNode(int val) { this.val = val; }
         ListNode(int val, ListNode next) { this.val = val; this.next = next; }
   }
-    public ListNode middleNode(ListNode head) {
+
+    //Helper function to find the middle of the linked list
+    //Time Complexity: O(n)
+    //Space Complexity: O(1)
+  public ListNode middleNode(ListNode head) {
         ListNode s = head;
         ListNode f = head;
         while (f != null && f.next != null){
@@ -43,6 +47,9 @@ public class palindromeLL {
         return s;
     }
 
+    //Helper function to reverse the linked list
+    //Time Complexity: O(n)
+    //Space Complexity: O(1)
     public ListNode reverse(ListNode head) {
         if(head ==  null){
             return head;
@@ -63,7 +70,11 @@ public class palindromeLL {
         return head;
     }
 
+    //Solution 2: Using Two Pointer Technique
+    //Time Complexity: O(2n)
+    //Space Complexity: O(1)
     public boolean isPalindrome(ListNode head) {
+        //Find middle
         ListNode mid = middleNode(head);
         ListNode headSec = reverse(mid);
         ListNode reReverseHead = headSec;
