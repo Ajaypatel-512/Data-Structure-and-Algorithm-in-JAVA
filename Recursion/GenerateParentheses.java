@@ -67,4 +67,31 @@ public class GenerateParentheses {
         }
         return sum == 0;
     }
+
+    //Solution 2: Using modified backtracking with a stack to keep track of the parentheses
+    //Time Complexity: O(2^n),
+    // space Complexity: O(n)
+    public static List<String> generateParenthesis2(int n) {
+        List<String> result = new ArrayList<>();
+        int open = 0, close = 0;
+        generateParenthesisHelper("",n,0, result, open, close);
+        return result;
+    }
+
+    private static void generateParenthesisHelper(String curr, int n, int length, List<String> result, int open, int close) {
+        if (length == 2 * n) {
+            result.add(curr);
+            return;
+        }
+        if (open < n) {
+            curr += '(';
+            generateParenthesisHelper(curr, n, length + 1, result, open + 1, close);
+            curr = curr.substring(0, curr.length() - 1);
+        }
+
+        if (close < open) {
+            curr += ')';
+            generateParenthesisHelper(curr, n, length + 1, result, open,close+1);
+        }
+    }
 }
