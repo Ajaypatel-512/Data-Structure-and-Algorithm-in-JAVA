@@ -1,4 +1,4 @@
-package Bit_Manupulation;
+package Recursion.Bit_Manupulation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +38,7 @@ public class PowerSet {
         List<Integer> temp = new ArrayList<>();
         int i = 0;
         solve(nums,i,temp);
+        return result;
     }
 
     private static void solve(int[] nums, int i, List<Integer> temp) {
