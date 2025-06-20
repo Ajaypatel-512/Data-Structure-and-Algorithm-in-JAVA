@@ -69,7 +69,7 @@ public class GenerateParentheses {
     }
 
     //Solution 2: Using modified backtracking with a stack to keep track of the parentheses
-    //Time Complexity: O(2^n),
+    //Time Complexity: OO(2^n),
     // space Complexity: O(n)
     public static List<String> generateParenthesis2(int n) {
         List<String> result = new ArrayList<>();
