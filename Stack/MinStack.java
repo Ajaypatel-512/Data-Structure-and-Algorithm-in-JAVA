@@ -55,6 +55,9 @@ public class MinStack {
         System.out.println(minStack.getMin()); // return -2
     }
 
+    //Solution 1: Using a Pair class to store both value and minimum
+    //Time Complexity: O(1) for push, pop, top, and getMin
+    //Space Complexity: O(n) for the stack
     Stack<Pair> stack;
     public MinStack() {
         stack = new Stack<>();
