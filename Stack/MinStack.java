@@ -91,4 +91,56 @@ public class MinStack {
         }
         throw new IllegalStateException("Stack is empty");
     }
+
+
+    //Solution 2: Using a single stack to store values and track minimum
+    //Time Complexity: O(1) for push, pop, top, and getMin
+    //Space Complexity: O(n) for the stack
+class MinStack2 {
+    /**
+     * initialize your data structure here.
+     */
+    Stack < Long > st = new Stack < Long > ();
+    Long mini;
+    public MinStack2() {
+        mini = Long.MAX_VALUE;
+    }
+
+    public void push(int value) {
+        Long val = Long.valueOf(value);
+        if (st.isEmpty()) {
+            mini = val;
+            st.push(val);
+        } else {
+            if (val < mini) {
+                st.push(2 * val - mini);
+                mini = val;
+            } else {
+                st.push(val);
+            }
+        }
+    }
+
+    public void pop() {
+        if (st.isEmpty()) return;
+
+        Long val = st.pop();
+        if (val < mini) {
+            mini = 2 * mini - val;
+        }
+    }
+
+    public int top() {
+        Long val = st.peek();
+        if (val < mini) {
+            return mini.intValue();
+        }
+        return val.intValue();
+    }
+
+    public int getMin() {
+        return mini.intValue();
+    }
+}
+
 }
