@@ -1,6 +1,7 @@
 package Stack;
 
 import java.util.Arrays;
+import java.util.Stack;
 
 public class NextGreaterElementII {
     /**
@@ -60,6 +61,26 @@ public class NextGreaterElementII {
                         result[i] = nums[j];
                         break;
                     }
+                }
+            }
+        }
+        return result;
+    }
+
+    //Solution 2: Using % operator
+    // Time Complexity: O(n^2)
+    // Space Complexity: O(n)
+    public static int[] nextGreaterElements2(int[] nums) {
+        int n = nums.length;
+        int[] result = new int[n];
+        Arrays.fill(result, -1);
+
+        for (int i = 0; i < n; i++) {
+           for (int j = i+1; j < i + n; j++) {
+                int idx = j% n;
+                if (nums[idx] > nums[i]) {
+                    result[i] = nums[idx];
+                    break;
                 }
             }
         }
