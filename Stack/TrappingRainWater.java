@@ -61,4 +61,29 @@ public class TrappingRainWater {
         }
         return totalWater;
     }
+
+    // Solution 2: Using Two Pointers
+    //Time Complexity: O(n)
+    //Space Complexity: O(1)
+    public static int trapTwoPointers(int[] height) {
+        int n = height.length;
+        if (n == 0) return 0;
+
+        int left = 0, right = n - 1;
+        int leftMax = height[left], rightMax = height[right];
+        int totalWater = 0;
+
+        while (left < right) {
+            if (leftMax < rightMax) {
+                left++;
+                leftMax = Math.max(leftMax, height[left]);
+                totalWater += leftMax - height[left];
+            } else {
+                right--;
+                rightMax = Math.max(rightMax, height[right]);
+                totalWater += rightMax - height[right];
+            }
+        }
+        return totalWater;
+    }
 }
