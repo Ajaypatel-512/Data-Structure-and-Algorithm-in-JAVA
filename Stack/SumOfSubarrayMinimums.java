@@ -1,5 +1,7 @@
 package Stack;
 
+import java.util.Stack;
+
 public class SumOfSubarrayMinimums {
     /**
      * 907. Sum of Subarray Minimums
@@ -52,6 +54,55 @@ public class SumOfSubarrayMinimums {
         return sum;
     }
 
+
+    //Solution 2: Using small and large arrays
+    // Time Complexity: O(n)
+    // Space Complexity: O(n)
+    public static int sumSubarrayMinsOptimized(int[] arr) {
+        int n = arr.length;
+        int mod = 1000000007;
+
+        int[] nse = findNextSmallerElement(arr);
+        int[] pse = findPreviousSmallerElement(arr);
+        int totalSum = 0;
+
+        for (int i = 0; i < n; i++) {
+            int leftCount = i - pse[i];
+            int rightCount = nse[i] - i;
+            totalSum = (int)((totalSum + (1L * arr[i] * leftCount * rightCount) % mod) % mod);
+        }
+        return totalSum;
+    }
+
+    private static int[] findNextSmallerElement(int[] arr) {
+        int n = arr.length;
+        int[] nse = new int[n];
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = n - 1; i >= 0; i--) {
+            while (!stack.isEmpty() && arr[stack.peek()] >= arr[i]) {
+                stack.pop();
+            }
+            nse[i] = stack.isEmpty() ? n : stack.peek();
+            stack.push(i);
+        }
+        return nse;
+    }
+
+    private static int[] findPreviousSmallerElement(int[] arr) {
+        int n = arr.length;
+        int[] pse = new int[n];
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = 0; i < n; i++) {
+            while (!stack.isEmpty() && arr[stack.peek()] > arr[i]) {
+                stack.pop();
+            }
+            pse[i] = stack.isEmpty() ? -1 : stack.peek();
+            stack.push(i);
+        }
+        return pse;
+    }
 
 
 }
