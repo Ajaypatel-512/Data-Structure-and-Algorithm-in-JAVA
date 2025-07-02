@@ -1,5 +1,7 @@
 package Stack;
 
+import java.util.Stack;
+
 public class SumOfSubarrayRanges {
     /**
      * 2104. Sum of Subarray Ranges
@@ -56,7 +58,14 @@ public class SumOfSubarrayRanges {
      * Follow-up: Could you find a solution with O(n) time complexity?
      * */
     public static void main(String[] args) {
+        int[] nums = {1, 2, 3};
+        System.out.println(subArrayRanges(nums)); // Output: 4
 
+        int[] nums1 = {1, 3, 3};
+        System.out.println(new SumOfSubarrayRanges().subArrayRanges1(nums1)); // Output: 4
+
+        int[] nums2 = {4, -2, -3, 4, 1};
+        System.out.println(new SumOfSubarrayRanges().subArrayRanges1(nums2)); // Output: 59
     }
 
     //Solution 1: Brute Force
@@ -78,4 +87,98 @@ public class SumOfSubarrayRanges {
         return ans;
     }
 
+    //Solution 2: Using Stack
+    // Time Complexity: O(n)
+    // Space Complexity: O(n)
+    public long subArrayRanges1(int[] nums) {
+        return sumSubarrayMaxsOptimized1(nums) - sumSubarrayMinsOptimized1(nums);
+    }
+
+    public long sumSubarrayMaxsOptimized1(int[] arr) {
+        int n = arr.length;
+        int[] nse = findNextGreaterElement1(arr);
+        int[] pse = findPreviousGreaterElement1(arr);
+        long totalSum = 0;
+
+        for (int i = 0; i < n; i++) {
+            long leftCount = i - pse[i];
+            long rightCount = nse[i] - i;
+            totalSum += (long) arr[i] * leftCount * rightCount;
+        }
+        return totalSum;
+    }
+
+    public long sumSubarrayMinsOptimized1(int[] arr) {
+        int n = arr.length;
+        int[] nse = findNextSmallerElement1(arr);
+        int[] pse = findPreviousSmallerElement1(arr);
+        long totalSum = 0;
+
+        for (int i = 0; i < n; i++) {
+            long leftCount = i - pse[i];
+            long rightCount = nse[i] - i;
+            totalSum += (long) arr[i] * leftCount * rightCount;
+        }
+        return totalSum;
+    }
+
+    private int[] findNextGreaterElement1(int[] arr) {
+        int n = arr.length;
+        int[] nge = new int[n];
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = n - 1; i >= 0; i--) {
+            while (!stack.isEmpty() && arr[stack.peek()] <= arr[i]) {
+                stack.pop();
+            }
+            nge[i] = stack.isEmpty() ? n : stack.peek();
+            stack.push(i);
+        }
+        return nge;
+    }
+
+    private int[] findPreviousGreaterElement1(int[] arr) {
+        int n = arr.length;
+        int[] pge = new int[n];
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = 0; i < n; i++) {
+            while (!stack.isEmpty() && arr[stack.peek()] < arr[i]) {
+                stack.pop();
+            }
+            pge[i] = stack.isEmpty() ? -1 : stack.peek();
+            stack.push(i);
+        }
+        return pge;
+    }
+
+    private int[] findNextSmallerElement1(int[] arr) {
+        int n = arr.length;
+        int[] nse = new int[n];
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = n - 1; i >= 0; i--) {
+            while (!stack.isEmpty() && arr[stack.peek()] >= arr[i]) {
+                stack.pop();
+            }
+            nse[i] = stack.isEmpty() ? n : stack.peek();
+            stack.push(i);
+        }
+        return nse;
+    }
+
+    private int[] findPreviousSmallerElement1(int[] arr) {
+        int n = arr.length;
+        int[] pse = new int[n];
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = 0; i < n; i++) {
+            while (!stack.isEmpty() && arr[stack.peek()] > arr[i]) {
+                stack.pop();
+            }
+            pse[i] = stack.isEmpty() ? -1 : stack.peek();
+            stack.push(i);
+        }
+        return pse;
+    }
 }
