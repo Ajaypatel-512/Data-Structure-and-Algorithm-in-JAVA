@@ -8,11 +8,11 @@ import java.util.Stack;
 
 public class PrerInPostOrderTraversalInSingleInstance {
 
-    public static class Pair {
+    private static class Pair {
         TreeNode node;
         int state;
 
-        public Pair(TreeNode node, int state) {
+        private Pair(TreeNode node, int state) {
             this.node = node;
             this.state = state;
         }
