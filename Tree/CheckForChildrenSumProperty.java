@@ -34,7 +34,7 @@ public class CheckForChildrenSumProperty {
         System.out.println("Children Sum Property is satisfied." + root);
     }
 
-    //Soltuion 1: Recursive approach to check and adjust the Children Sum Property
+    //Solution 1: Recursive approach to check and adjust the Children Sum Property
     //Time Complexity: O(n), where n is the number of nodes in the tree
     //Space Complexity: O(h), where h is the height of the tree due to recursion stack
     private static void checkChildrenSumProperty(TreeNode root) {
