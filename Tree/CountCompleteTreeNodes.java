@@ -56,4 +56,34 @@ public class CountCompleteTreeNodes {
         return count;
     }
 
+    //Solution 2: Using left and right height to count nodes
+    // Time Complexity: O(log^2 n), where n is the number of nodes in the tree
+    // Space Complexity: O(h), where h is the height of the tree due to recursion stack
+    public static int countNodes2(TreeNode root) {
+       if (root == null) return 0;
+       int left = getLeftHeight(root);
+       int right = getRightHeight(root);
+
+       if (left == right) return ((2<<(left))-1);
+       else return countNodes2(root.left) + countNodes2(root.right)+1;
+    }
+
+    private static int getLeftHeight(TreeNode root) {
+        int count=0;
+        while (root.left != null) {
+            count++;
+            root = root.left;
+        }
+        return count;
+    }
+
+    private static int getRightHeight(TreeNode root) {
+        int count=0;
+        while (root.right != null) {
+            count++;
+            root = root.right;
+        }
+        return count;
+    }
+
 }
