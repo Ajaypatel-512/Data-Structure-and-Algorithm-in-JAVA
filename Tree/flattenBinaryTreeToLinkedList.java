@@ -89,4 +89,23 @@ public class flattenBinaryTreeToLinkedList {
             current.left = null;
         }
     }
+
+    //Solution 3: Morris Traversal
+    // Time Complexity: O(n), where n is the number of nodes in the tree.
+    // Space Complexity: O(1), as we are not using any additional data structures for traversal.
+    public static void flattenMorris(TreeNode root) {
+        TreeNode current = root;
+        while (current != null) {
+            if (current.left != null) {
+                TreeNode rightmost = current.left;
+                while (rightmost.right != null) {
+                    rightmost = rightmost.right;
+                }
+                rightmost.right = current.right;
+                current.right = current.left;
+                current.left = null;
+            }
+            current = current.right;
+        }
+    }
 }
