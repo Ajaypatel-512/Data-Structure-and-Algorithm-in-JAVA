@@ -1,5 +1,7 @@
 package Tree;
 
+import java.util.Stack;
+
 public class flattenBinaryTreeToLinkedList {
     /**
      * 114. Flatten Binary Tree to Linked List
@@ -62,5 +64,29 @@ public class flattenBinaryTreeToLinkedList {
         root.right = prev;
         root.left = null;
         prev = root;
+    }
+
+    //Solution 2: Iterative Approach
+    // Time Complexity: O(n), where n is the number of nodes in the tree.
+    // Space Complexity: O(h), where h is the height of the tree due to the stack used for traversal.
+    static Stack<TreeNode> stack = new Stack<>();
+    public static void flattenIterative(TreeNode root) {
+        if (root == null) return;
+        stack.push(root);
+
+        while (!stack.isEmpty()) {
+            TreeNode current = stack.pop();
+
+            if (current.right != null) {
+                stack.push(current.right);
+            }
+            if (current.left != null) {
+                stack.push(current.left);
+            }
+            if (!stack.isEmpty()) {
+                current.right = stack.peek();
+            }
+            current.left = null;
+        }
     }
 }
