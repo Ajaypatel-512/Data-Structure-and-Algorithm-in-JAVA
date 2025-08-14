@@ -66,4 +66,18 @@ public class ValidateBST {
         inOrderList.add(root.val);
         inOrderTraversal(root.right, inOrderList);
     }
+
+    //Solution 2: Using recursion with bounds
+    //Time Complexity: O(n) where n is the number of nodes in the tree
+    //Space Complexity: O(h) where h is the height of the tree (due to recursion stack)
+    private static boolean isValidBSTWithBounds(TreeNode root) {
+        return isValidBSTWithBounds(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+
+    private static boolean isValidBSTWithBounds(TreeNode root, long minVal, long maxVal) {
+        if (root == null) return true;
+        if (root.val <= minVal|| root.val >= maxVal) return false;
+        return isValidBSTWithBounds(root.left, minVal, root.val) &&
+               isValidBSTWithBounds(root.right, root.val, maxVal);
+    }
 }
