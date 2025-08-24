@@ -66,7 +66,9 @@ public class FloodFill {
         }
     }
 
-
+    //Solution 1: Using DFS
+    // Time Complexity: O(m * n) where m is the number of rows and n is the number of columns in the image.
+    // Space Complexity: O(m * n) for the recursion stack in the worst case.
     public static int[][] floodFill(int[][] image, int sr, int sc, int newcolor) {
         int iniColor = image[sr][sc];
         int[][] ans = image;
