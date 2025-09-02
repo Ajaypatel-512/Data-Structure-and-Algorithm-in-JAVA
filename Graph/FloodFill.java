@@ -91,4 +91,38 @@ public class FloodFill {
             }
         }
     }
+
+
+    //Solution 2: Using DFS (Simpler Version)
+    // Time Complexity: O(m * n) where m is the number of rows and n is the number of columns in the image.
+    // Space Complexity: O(m * n) for the recursion stack in the worst case.
+    public int[][] floodFill2(int[][] image, int sr, int sc, int newColor) {
+        int originalColor = image[sr][sc];
+
+        // If the starting pixel already has the new color, no need to process
+        if (originalColor == newColor) {
+            return image;
+        }
+
+        // Start DFS
+        dfs2(image, sr, sc, originalColor, newColor);
+        return image;
+    }
+
+    private void dfs2(int[][] image, int r, int c, int originalColor, int newColor) {
+        // Boundary check + check if same as original color
+        if (r < 0 || r >= image.length || c < 0 || c >= image[0].length
+                || image[r][c] != originalColor) {
+            return;
+        }
+
+        // Change the color
+        image[r][c] = newColor;
+
+        // Explore neighbors (up, down, left, right)
+        dfs2(image, r - 1, c, originalColor, newColor); // up
+        dfs2(image, r + 1, c, originalColor, newColor); // down
+        dfs2(image, r, c - 1, originalColor, newColor); // left
+        dfs2(image, r, c + 1, originalColor, newColor); // right
+    }
 }
