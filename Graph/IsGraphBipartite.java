@@ -100,5 +100,54 @@ public class IsGraphBipartite {
         return true;
     }
 
+    //Solution 2: DFS
+    //Time Complexity: O(V + E)
+    //Space Complexity: O(V)
+    public static boolean dfs(int node, int col, int color[], ArrayList<ArrayList<Integer>> adj) {
+        color[node] = col;
+
+        for(int it : adj.get(node)) {
+            if(color[it] == -1) {
+                if(dfs(it, 1 - col, color, adj) == false) {
+                    return false;
+                }
+            }
+            else if(color[it] == col) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean isBipartiteDFS(int[][] graph) {
+        int V = graph.length;
+
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+        for(int i = 0; i < V; i++) {
+            adj.add(new ArrayList<>());
+        }
+
+        for(int i = 0; i < V; i++) {
+            for(int j = 0; j < graph[i].length; j++) {
+                adj.get(i).add(graph[i][j]);
+                adj.get(graph[i][j]).add(i);
+            }
+        }
+
+        int color[] = new int[V];
+        for(int i = 0; i < V; i++) {
+            color[i] = -1;
+        }
+
+        for(int i = 0; i < V; i++) {
+            if(color[i] == -1) {
+                if(dfs(i, 0, color, adj) == false) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 
 }
